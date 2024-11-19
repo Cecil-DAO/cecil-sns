@@ -1,0 +1,241 @@
+section {
+  color: #141414;
+  font-family: Oswald;
+}
+
+.daoButton { 
+  display: inline-flex;
+  gap: 8px;
+  height: 48px;
+  padding: 8px 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  background: #E6FBF6;
+  cursor: pointer;
+  color: #57656F;
+  font-family: "Open Sans";
+  font-size: 14px;
+}
+
+.planetSection {
+  position: relative;
+  min-height: 100vh;
+
+  .backgroundText {
+    width: 100%;
+    font-family: Oswald;
+    font-size: 21vw;
+    font-weight: 700;
+    line-height: 21vw;
+    text-align: center;
+    color: #EFFFEEBF;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, - 50%, 0);
+
+  }
+}
+
+.itemsSection {
+  width: 100%;
+  max-width: 926px;
+  margin: 0 auto;
+
+  .smallContainer {
+    width: 100%;
+    max-width: 454px;
+    margin: 0 auto;
+
+    h2 {
+      font-family: Oswald;
+      font-size: 120px;
+      font-weight: 600;
+      line-height: 120px;
+      text-align: center;
+    }
+
+    p {
+      font-family: "Open Sans", sans-serif, Oswald;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 32px;
+      text-align: center;
+      color: #57656F;
+    }
+  }
+}
+
+.discoverSection {
+  width: 100%;
+  max-width: 1164px;
+  margin: 0 auto;
+
+  h4 {
+    font-family: "Open Sans", Oswald;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+    background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    font-family: "Open Sans", Oswald;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+  }
+
+  a {
+    font-family: "Open Sans", Oswald;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: 0.1em;
+    text-align: center;
+
+    border-bottom: 1px solid;
+    border-image: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%) 1;
+  }
+}
+
+footer {
+  font-family: "Open Sans", Oswald;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0.1em;
+  text-align: left;
+  color: #57656F;
+}
+
+.backButton {
+  color: #57656F;
+  font-family: "Source Sans Pro", Oswald;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.article {
+  padding: 50px;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  h2 {
+    max-width: 454px;
+    color: #141414;
+    text-align: center;
+    font-family: Oswald;
+    font-size: 90px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100px;
+
+    @media screen and (max-width: 767px) {
+      font-size: 36px;
+      line-height: 36px;
+    }
+  }
+
+  p {
+    max-width: 454px;
+    color: #57656F;
+    text-align: justify;
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+  }
+
+  h3 {
+    max-width: 454px;
+    background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+    margin-top: 32px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-family: Oswald;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 40px;
+
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .itemsSection {
+    h2 {
+      font-size: 36px;
+      line-height: 36px;
+    }
+
+    .smallContainer {
+      h2 {
+        font-size: 36px;
+        line-height: 36px;
+      }
+    }
+
+    h3 {
+      font-size: 24px;
+      line-height: 24px;
+    }
+  }
+}
+
+/* The progress container (grey background) */
+.progress-container {
+  position: fixed;
+  border-radius: 2px;
+  left: 60px;
+  top: calc(50% - 105px);
+  height: 210px;
+  width: 4px;
+  background: #ffffff;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+  height: 0%;
+}
+
+.progress-section {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: -3px;
+  top: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #000000;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "cecil-monorepo",
+  "description": "Cecil DAO",
+  "author": "CecilDAO",
+  "workspaces": [
+    "client/cecil_dao_website"
+  ],
+  "license": "AGPL-3.0-only",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev:cecil_dao_website": "npm run --workspace cecil_dao_website develop",
+    "build:cecil_dao_website": "npm run --workspace cecil_dao_website build",
+    "lint": "npm run lint:back && npm run lint:frontends",
+    "lint:back": "cargo clippy",
+    "lint:cecil_dao_website": "npm run --workspace cecil_dao_website lint",
+    "start": "dfx stop && dfx start --background --clean && npm run deploy",
+    "stop": "dfx stop",
+    "test": "npm run build:backdid && cargo tarpaulin --count -o html",
+    "postinstall": "rustup update; rustup component add clippy; echo 'If installing locally, you should also ensure that ic-wasm is installed (cargo install ic-wasm), as well as wasmtime (see https://wasmtime.dev ).'"
+  },
+  "devDependencies": {
+    "eslint": "8.40.0"
+  },
+  "engines": {
+    "node": "^20.15.1",
+    "npm": "^10.7.0"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "sns_neuron_controller": {
+    "ic": "ebrqv-vaaaa-aaaal-qb6zq-cai",
+    "staging": "3x5sf-taaaa-aaaah-aq33q-cai"
+  },
+  "cecil_dao_website": {
+    "ic": "lcfrb-biaaa-aaaag-aovnq-cai",
+    "staging": "yb7ln-tiaaa-aaaam-qb4eq-cai"
+  },
+  "sns_governance": {
+    "ic": "",
+    "staging": ""
+  },
+  "sns_index": {
+    "ic": "",
+    "staging": ""
+  },
+  "sns_ledger": {
+    "ic": "",
+    "staging": ""
+  },
+  "sns_root": {
+    "ic": "",
+    "staging": ""
+  },
+  "sns_swap": {
+    "ic": "",
+    "staging": ""
+  }
+}
