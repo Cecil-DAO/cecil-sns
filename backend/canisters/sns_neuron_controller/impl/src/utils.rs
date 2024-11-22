@@ -122,51 +122,58 @@ impl ClaimRewardResult {
     }
 }
 
-// TODO: think of outstanding payments struct in this context
 pub async fn distribute_rewards(sns_ledger_canister_id: Principal) -> Result<(), String> {
-    let sns_rewards_canister_id = read_state(|state| state.data.sns_rewards_canister_id);
-
-    let fee = icrc_ledger_canister_c2c_client::icrc1_fee(sns_ledger_canister_id)
-        .await
-        .unwrap();
-    // Transfer all the tokens to sns_rewards to be distributed
-    match icrc_ledger_canister_c2c_client::icrc1_balance_of(
-        sns_ledger_canister_id,
-        &(Account {
-            owner: ic_cdk::api::id(),
-            subaccount: None,
-        }),
-    )
-    .await
-    {
-        Ok(balance) => {
-            match transfer_token(
-                [0; 32],
-                sns_rewards_canister_id.into(),
+    let rewards_destination_opt = read_state(|state| state.data.rewards_destination);
+    match rewards_destination_opt {
+        None => {
+            info!("Rewards destination in not set. Skipping distribution");
+            Ok(())
+        }
+        Some(rewards_destination) => {
+            let fee = icrc_ledger_canister_c2c_client::icrc1_fee(sns_ledger_canister_id)
+                .await
+                .unwrap();
+            // Transfer all the tokens to sns_rewards to be distributed
+            match icrc_ledger_canister_c2c_client::icrc1_balance_of(
                 sns_ledger_canister_id,
-                balance - fee,
+                &(Account {
+                    owner: ic_cdk::api::id(),
+                    subaccount: None,
+                }),
             )
             .await
             {
-                Ok(_) => {
-                    info!("Successfully transferred rewards");
+                Ok(balance) => {
+                    match transfer_token(
+                        [0; 32],
+                        rewards_destination.into(),
+                        sns_ledger_canister_id,
+                        balance - fee,
+                    )
+                    .await
+                    {
+                        Ok(_) => {
+                            info!("Successfully transferred rewards");
 
-                    Ok(())
+                            Ok(())
+                        }
+                        Err(error_message) => {
+                            let error_message =
+                                format!("Error during transfer rewards: {}", error_message);
+                            error!(error_message);
+                            Err(error_message)
+                        }
+                    }
                 }
-                Err(error_message) => {
-                    let error_message = format!("Error during transfer rewards: {}", error_message);
-                    error!(error_message);
-                    Err(error_message)
-                }
-            }
-        }
-        Err(e) => {
-            let error_message = format!(
+                Err(e) => {
+                    let error_message = format!(
                 "Failed to fetch token balance of sns_neuron_controller from ledger canister id {} with ERROR : {:?}",
                 sns_ledger_canister_id, e
             );
-            error!("{}", error_message);
-            Err(error_message)
+                    error!("{}", error_message);
+                    Err(error_message)
+                }
+            }
         }
     }
 }

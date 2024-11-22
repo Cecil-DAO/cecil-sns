@@ -31,7 +31,7 @@ fn test_process_neurons_happy_path() {
         &mut test_env.pic,
         ogy_ledger_canister_id,
         Account {
-            owner: test_env.gld_rewards_canister_id,
+            owner: test_env.rewards_destination,
             subaccount: None,
         },
     );
@@ -89,7 +89,7 @@ fn test_process_neurons_happy_path() {
         &mut test_env.pic,
         ogy_ledger_canister_id,
         Account {
-            owner: test_env.gld_rewards_canister_id,
+            owner: test_env.rewards_destination,
             subaccount: None,
         },
     );

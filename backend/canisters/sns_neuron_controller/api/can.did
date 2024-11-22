@@ -24,7 +24,8 @@ type Args = record {
   neuron_id : blob;
 };
 type Args_1 = record { amount : nat64 };
-type Args_2 = variant { Upgrade : UpgradeArgs; Init : InitArgs };
+type Args_2 = record { rewards_destination : opt principal };
+type Args_3 = variant { Upgrade : UpgradeArgs; Init : InitArgs };
 type BuildVersion = record { major : nat32; minor : nat32; patch : nat32 };
 type By = variant {
   MemoAndController : MemoAndController;
@@ -88,12 +89,12 @@ type IncreaseDissolveDelay = record {
   additional_dissolve_delay_seconds : nat32;
 };
 type InitArgs = record {
+  rewards_destination : opt principal;
   test_mode : bool;
   ogy_sns_ledger_canister_id : principal;
   ogy_sns_rewards_canister_id : principal;
   authorized_principals : vec principal;
   version : BuildVersion;
-  sns_rewards_canister_id : principal;
   commit_hash : text;
   ogy_sns_governance_canister_id : principal;
 };
@@ -182,6 +183,7 @@ type RemoveNeuronPermissions = record {
 };
 type Response = variant { Success : text; InternalError : text };
 type Response_1 = variant { Success : blob; InternalError : text };
+type Response_2 = variant { Success };
 type SetDissolveTimestamp = record { dissolve_timestamp_seconds : nat64 };
 type Split = record { memo : nat64; amount_e8s : nat64 };
 type StakeMaturity = record { percentage_to_stake : opt nat32 };
@@ -206,8 +208,9 @@ type VotingRewardsParameters = record {
   reward_rate_transition_duration_seconds : opt nat64;
   round_duration_seconds : opt nat64;
 };
-service : (Args_2) -> {
+service : (Args_3) -> {
   list_ogy_neurons : () -> (ListNeuronsResponse) query;
   manage_sns_neuron : (Args) -> (Response);
   stake_ogy_neuron : (Args_1) -> (Response_1);
+  update_config : (Args_2) -> (Response_2);
 }

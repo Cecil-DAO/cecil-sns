@@ -25,7 +25,7 @@ fn init(args: Args) {
                 init_args.ogy_sns_governance_canister_id,
                 init_args.ogy_sns_ledger_canister_id,
                 init_args.ogy_sns_rewards_canister_id,
-                init_args.sns_rewards_canister_id,
+                init_args.rewards_destination,
                 env.now(),
             );
 

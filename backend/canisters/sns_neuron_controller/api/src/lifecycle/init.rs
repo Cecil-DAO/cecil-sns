@@ -7,7 +7,7 @@ pub struct InitArgs {
     pub version: BuildVersion,
     pub commit_hash: String,
     pub authorized_principals: Vec<Principal>,
-    pub sns_rewards_canister_id: Principal,
+    pub rewards_destination: Option<Principal>,
     pub ogy_sns_governance_canister_id: Principal,
     pub ogy_sns_ledger_canister_id: Principal,
     pub ogy_sns_rewards_canister_id: Principal,

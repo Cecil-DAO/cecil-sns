@@ -18,9 +18,7 @@ canister_state!(RuntimeState);
 
 #[derive(Serialize, Deserialize)]
 pub struct RuntimeState {
-    /// Runtime environment
     pub env: CanisterEnv,
-    /// Runtime data
     pub data: Data,
 }
 
@@ -40,7 +38,7 @@ impl RuntimeState {
             },
 
             authorized_principals: self.data.authorized_principals.clone(),
-            sns_rewards_canister_id: self.data.sns_rewards_canister_id,
+            rewards_destination: self.data.rewards_destination,
             ogy_neuron_manager_metrics: self.data.neuron_managers.ogy.get_neuron_metrics(),
         }
     }
@@ -55,7 +53,7 @@ impl RuntimeState {
 pub struct Metrics {
     pub canister_info: CanisterInfo,
     pub authorized_principals: Vec<Principal>,
-    pub sns_rewards_canister_id: Principal,
+    pub rewards_destination: Option<Principal>,
     pub ogy_neuron_manager_metrics: Vec<NeuronWithMetric>,
 }
 
@@ -73,7 +71,7 @@ pub struct CanisterInfo {
 pub struct Data {
     pub authorized_principals: Vec<Principal>,
     pub neuron_managers: NeuronManagers,
-    pub sns_rewards_canister_id: CanisterId,
+    pub rewards_destination: Option<Principal>,
 }
 
 impl Data {
@@ -82,7 +80,7 @@ impl Data {
         ogy_sns_governance_canister_id: CanisterId,
         ogy_sns_ledger_canister_id: CanisterId,
         ogy_sns_rewards_canister_id: CanisterId,
-        sns_rewards_canister_id: CanisterId,
+        rewards_destination: Option<Principal>,
         now: TimestampMillis,
     ) -> Self {
         Self {
@@ -93,7 +91,7 @@ impl Data {
                 ogy_sns_rewards_canister_id,
                 now,
             ),
-            sns_rewards_canister_id,
+            rewards_destination,
         }
     }
 }
