@@ -9,14 +9,14 @@ if [[ $REINSTALL == "reinstall" ]]; then
 
   if [[ $NETWORK =~ ^(local|staging)$ ]]; then
     TESTMODE=true
-    SNS_REWARDS_CANISTER_ID=
+    REWARDS_DESTINATION=null
     OGY_SNS_GOVERNANCE_CANISTER_ID=jtpnb-waaaa-aaaal-ajc6q-cai
     OGY_SNS_LEDGER_CANISTER_ID=j5naj-nqaaa-aaaal-ajc7q-cai
     OGY_SNS_REWARDS_CANISTER_ID=fpmqz-aaaaa-aaaag-qjvua-cai
     AUTHORIZED_PRINCIPAL=fp72l-g7ndm-xsaub-5st4x-kcegj-jnssi-flbaz-awtx3-vr4wk-77wlf-yae
   elif [[ $NETWORK =~ ^(ic)$ ]]; then
     TESTMODE=false
-    SNS_REWARDS_CANISTER_ID=
+    REWARDS_DESTINATION=null
     OGY_SNS_GOVERNANCE_CANISTER_ID=lnxxh-yaaaa-aaaaq-aadha-cai
     OGY_SNS_LEDGER_CANISTER_ID=lkwrt-vyaaa-aaaaq-aadhq-cai
     OGY_SNS_REWARDS_CANISTER_ID=yuijc-oiaaa-aaaap-ahezq-cai
@@ -33,7 +33,7 @@ if [[ $REINSTALL == "reinstall" ]]; then
     authorized_principals = vec {
       principal \"$AUTHORIZED_PRINCIPAL\";
     };
-    sns_rewards_canister_id = principal \"$SNS_REWARDS_CANISTER_ID\";
+    rewards_destination = \"$REWARDS_DESTINATION\";
     ogy_sns_governance_canister_id = principal \"$OGY_SNS_GOVERNANCE_CANISTER_ID\";
     ogy_sns_ledger_canister_id = principal \"$OGY_SNS_LEDGER_CANISTER_ID\";
     ogy_sns_rewards_canister_id = principal \"$OGY_SNS_REWARDS_CANISTER_ID\";
