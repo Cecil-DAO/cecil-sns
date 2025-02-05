@@ -103,7 +103,7 @@ dapp_canisters:
   # IDs of the canisters comprising your to-be-decentralized dapp.
   #
   # For testing, propose_sns.sh will fill this in automatically.
-  - add_me
+  - ebrqv-vaaaa-aaaal-qb6zq-cai
 
 # Configuration of SNS tokens in the SNS Ledger canister deployed as part
 # of the SNS.
@@ -117,7 +117,7 @@ Token:
   symbol: CECIL
 
   # SNS ledger transaction fee.
-  transaction_fee: 10_000_000 e8s
+  transaction_fee: 1_000_000 e8s
 
   # Path to the SNS token logo on your local filesystem. The path is relative
   # to the configuration file location, unless an absolute path is given.
@@ -176,7 +176,7 @@ Voting:
   #
   # Users cannot access the SNS tokens used to stake neurons (until the neuron
   # is dissolved). This field is specified as a duration. For example: "6 months".
-  minimum_dissolve_delay: 5 years
+  minimum_dissolve_delay: 3 years
 
   # Configuration of voting power bonuses that are applied to neurons to
   # incentivize alignment with the best interest of the DAO. Note, these
@@ -207,7 +207,7 @@ Voting:
       # This parameter sets the maximum dissolve delay a neuron can have.
       # When reached, the maximum dissolve delay bonus will be applied.
       # This field is specified as a duration. For example: "8 years".
-      duration: 5 yars
+      duration: 3 yars
       # If a neuron's dissolve delay is `duration`, its voting power will
       # be increased by the dissolve delay `bonus` amount.
       # This field is specified as a percentage. For instance,
@@ -240,7 +240,7 @@ Voting:
       # the maximum age bonus. Once this age is reached, the neuron will
       # continue to age, but no more bonus will be applied. This field
       # is specified as a duration. For example: "2 years".
-      duration: 5 years
+      duration: 3 years
       # If a neuron's age is `duration` or older, its voting power will be
       # increased by this age`bonus` amount.
       # This field is specified as a percentage. For instance,
@@ -283,7 +283,7 @@ Voting:
     # Values of 0 result in the reward rate always being `final`.
     #
     # This field is specified as a duration. For example: "8 years".
-    transition_duration: 5 years
+    transition_duration: 3 years
 
 # Configuration of the initial token distribution of the SNS. You can configure
 # how SNS tokens are distributed in each of the three groups:
@@ -311,19 +311,16 @@ Distribution:
   Neurons:
     # For the actual SNS launch, you should replace this with one or more
     # principals of your intended genesis neurons.
-    # Team neurons are split among 8 team members, each receiving 2.5M tokens with a 3 month dissolve delay.
-    # So in total each team member receives 22.5M tokens split in 9 neurons, summing up in total to 180M tokens for the team.
-    # (2.5M * 9) * 8 = 180M tokens (= 18% of total supply)
     #
-    - principal: 123
+    - principal: uvrim-vpson-krkki-4gaz2-fluwn-epogy-th3sx-kgvgw-3nra7-zs4n5-jae
       stake: 15_000 tokens
       memo: 0
       dissolve_delay: 0 years
       vesting_period: 0 years
-    - principal: 123
+    - principal: uvrim-vpson-krkki-4gaz2-fluwn-epogy-th3sx-kgvgw-3nra7-zs4n5-jae
       stake: 15_000 tokens
       memo: 1
-      dissolve_delay: 5 years
+      dissolve_delay: 3 years
       vesting_period: 0 years
 
   # The initial SNS token balances of the various canisters of the SNS.
@@ -397,31 +394,31 @@ Swap:
   # are allowed.
   #
   # Each list element must be an ISO 3166-1 alpha-2 country code.
-  restricted_countries:
-    - AF # AFGHANISTAN
-    - BY # BELARUS
-    - BA # BOSNIA AND HERZEGOVINA
-    - BI # BURUNDI
-    - CF # CENTRAL AFRICAN REPUBLIC
-    - KP # NORTH KOREA
-    - CD # DEMOCRATIC REPUBLIC OF THE CONGO
-    - IR # IRAN
-    - IQ # IRAQ
-    - LB # LEBANON
-    - LY # LIBYA
-    - ML # MALI
-    - ME # MONTENEGRO
-    - MM # MYANMAR
-    - NI # NICARAGUA
-    - RU # RUSSIA
-    - RS # SERBIA
-    - SO # SOMALIA
-    - SD # SUDAN
-    - SY # SYRIA
-    - UA # UKRAINE
-    - VE # VENEZUELA
-    - YE # YEMEN
-    - ZW # ZIMBABWE
+  # restricted_countries:
+  #   - AF # AFGHANISTAN
+  #   - BY # BELARUS
+  #   - BA # BOSNIA AND HERZEGOVINA
+  #   - BI # BURUNDI
+  #   - CF # CENTRAL AFRICAN REPUBLIC
+  #   - KP # NORTH KOREA
+  #   - CD # DEMOCRATIC REPUBLIC OF THE CONGO
+  #   - IR # IRAN
+  #   - IQ # IRAQ
+  #   - LB # LEBANON
+  #   - LY # LIBYA
+  #   - ML # MALI
+  #   - ME # MONTENEGRO
+  #   - MM # MYANMAR
+  #   - NI # NICARAGUA
+  #   - RU # RUSSIA
+  #   - RS # SERBIA
+  #   - SO # SOMALIA
+  #   - SD # SUDAN
+  #   - SY # SYRIA
+  #   - UA # UKRAINE
+  #   - VE # VENEZUELA
+  #   - YE # YEMEN
+  #   - ZW # ZIMBABWE
 
   # Configuration of the vesting schedule of the neuron basket, i.e., the SNS
   # neurons that a participants will receive from a successful
@@ -444,7 +441,7 @@ Swap:
     # neurons. While neuron basket neurons do not use `vesting_period`, they
     # have a vesting schedule. This field is specified as a duration. For
     # example: "1 month".
-    interval: 5 years
+    interval: 3 years
 
   # Absolute time of day when the decentralization swap is supposed to start.
   #
