@@ -89,7 +89,7 @@ fallback_controller_principals:
   # principals of your intended fallback controllers.
   #
   # For testing, propose_sns.sh will fill this in automatically.
-  - add_me
+  - uvrim-vpson-krkki-4gaz2-fluwn-epogy-th3sx-kgvgw-3nra7-zs4n5-jae
 
 # The list of dapp canister(s) that will be decentralized if the
 # decentralization swap succeeds. These are defined in the form of canister IDs,
@@ -312,12 +312,12 @@ Distribution:
     # For the actual SNS launch, you should replace this with one or more
     # principals of your intended genesis neurons.
     #
-    - principal: uvrim-vpson-krkki-4gaz2-fluwn-epogy-th3sx-kgvgw-3nra7-zs4n5-jae
+    - principal: tbd
       stake: 15_000 tokens
       memo: 0
       dissolve_delay: 0 years
       vesting_period: 0 years
-    - principal: uvrim-vpson-krkki-4gaz2-fluwn-epogy-th3sx-kgvgw-3nra7-zs4n5-jae
+    - principal: tbd
       stake: 15_000 tokens
       memo: 1
       dissolve_delay: 3 years
