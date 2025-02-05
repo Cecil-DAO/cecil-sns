@@ -313,12 +313,22 @@ Distribution:
     # principals of your intended genesis neurons.
     #
     - principal: tbd
-      stake: 15_000 tokens
+      stake: 7_500 tokens
       memo: 0
       dissolve_delay: 0 years
       vesting_period: 0 years
     - principal: tbd
-      stake: 15_000 tokens
+      stake: 7_500 tokens
+      memo: 1
+      dissolve_delay: 3 years
+      vesting_period: 0 years
+    - principal: tbd
+      stake: 7_500 tokens
+      memo: 0
+      dissolve_delay: 0 years
+      vesting_period: 0 years
+    - principal: tbd
+      stake: 7_500 tokens
       memo: 1
       dissolve_delay: 3 years
       vesting_period: 0 years
