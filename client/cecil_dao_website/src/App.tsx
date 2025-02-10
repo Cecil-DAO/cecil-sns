@@ -1,11 +1,11 @@
 import "./App.css";
 
-import RouterProvider from "@providers/Router.tsx";
+import Router from "./router";
 
 function App() {
   return (
     <>
-      <RouterProvider />
+      <Router />
     </>
   );
 }
