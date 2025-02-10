@@ -52,23 +52,6 @@ $[[ inputs.src-folder ]] staging deploy:
     deployment_tier: staging
     action: start
 
-$[[ inputs.src-folder ]] preprod deploy:
-  extends: .staging deploy template
-  variables:
-    TARGET_NETWORK: preprod
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "develop" && $CI_PIPELINE_SOURCE != "merge_request_event"
-      changes:
-        - "client/$[[ inputs.src-folder ]]/*.{js,json}"
-        - "client/$[[ inputs.src-folder ]]/**/*.{js,jsx,ts,tsx,md,mdx,css,html,svg}"
-  needs: ["$[[ inputs.src-folder ]] preprod build"]
-  script:
-    - dfx deploy --network $TARGET_NETWORK --no-wallet --mode reinstall -y $[[ inputs.src-folder ]]
-  environment:
-    name: $[[ inputs.src-folder ]] frontend
-    deployment_tier: testing
-    action: start
-
 # PRODUCTION DEPLOYMENT
 
 $[[ inputs.src-folder ]] production deploy:
