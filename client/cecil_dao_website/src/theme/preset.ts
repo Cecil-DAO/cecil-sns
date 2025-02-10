@@ -40,10 +40,5 @@ export default {
         'cover-img': "url('/src/assets/bg-cover.png')",
       }
     },
-  },
-  plugins: [
-    import("@tailwindcss/typography"),
-    import("@tailwindcss/aspect-ratio"),
-    import("@tailwindcss/line-clamp")
-  ],
+  }
 };

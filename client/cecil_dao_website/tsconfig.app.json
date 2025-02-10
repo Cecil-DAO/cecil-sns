@@ -28,17 +28,9 @@
     /* Paths */
     "baseUrl": "src",
     "paths": {
-      "@store/*": ["store/*"],
-      "@context/*": ["context/*"],
-      "@hooks/*": ["hooks/*"],
-      "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
-      "@utils/*": ["utils/*"],
-      "@providers/*": ["providers/*"],
-      "@constants": ["constants.ts"],
-      "@theme/*": ["theme/*"],
-      "@canisters/*": ["canisters/*"],
-      "@auth/*": ["auth/*"],
+      "@views/*": ["views/*"],
+      "@theme/*": ["theme/*"]
     }
   },
   "include": ["src"],
