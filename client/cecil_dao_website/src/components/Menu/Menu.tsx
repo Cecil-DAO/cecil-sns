@@ -18,7 +18,11 @@ const Menu = () => {
       </div>
       <div className={`overlayMenu ${isOpened && "opened"}`}>
         <div className="menuHeader">
-          <img src="/brand-origyn.png" alt="" style={{ height: 32 }} />
+          <img
+            src="/logo-cecil-dao.png"
+            alt="Logo Cecil DAO"
+            className="h-[48px]"
+          />
           <img
             className="hidden md:block"
             src="/TheGoodDAO.svg"

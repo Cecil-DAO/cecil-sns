@@ -29,7 +29,11 @@ export const LionPage = () => {
     <div className="container mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div style={{ textAlign: "center" }}>
-          <img src="/brand-origyn.png" alt="" style={{ height: 32 }} />
+          <img
+            src="/logo-cecil-dao.png"
+            alt="Logo Cecil DAO"
+            className="h-[48px]"
+          />
           <Link to="/" className="backButton flex gap-4 mt-4">
             <img
               width={8}

@@ -10,7 +10,11 @@ export const LandingPage = () => {
     <div className="container mx-auto">
       <div className="flex flex-col min-h-screen">
         <header className="flex justify-between p-4">
-          <img src="/brand-origyn.png" alt="" className="h-[32px]" />
+          <img
+            src="/logo-cecil-dao.png"
+            alt="Logo Cecil DAO"
+            className="h-[48px]"
+          />
           <img
             className="hidden md:block"
             src="/TheGoodDAO.svg"
