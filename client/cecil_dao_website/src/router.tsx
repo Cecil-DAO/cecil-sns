@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import {
   createBrowserRouter,
   RouterProvider as ReactRouterProvider,
@@ -7,7 +6,19 @@ import {
 import Layout from "@components/Layout";
 
 import LandingPage from "views/LandingPage";
-import CecilTheLion from "views/cecil-the-lion/CecilTheLion";
+
+import CecilTheLion from "@views/projects/CecilTheLion";
+import ProjectAfricanLions from "@views/projects/ProjectAfricanLions";
+import Akashingas from "@views/projects/Akashingas";
+import CecilAI from "@views/projects/CecilAI";
+import JusticePourEnfance from "@views/projects/JusticePourEnfance";
+import Malaika from "@views/projects/Malaika";
+import MightyUnderDogs from "@views/projects/MightyUnderDogs";
+import TheKingsChildrensHome from "@views/projects/TheKingsChildrensHome";
+
+import SNS from "@views/SNS";
+import ICPNodes from "@views/ICPNodes";
+import Neuron from "@views/Neuron";
 
 const router = createBrowserRouter([
   {
@@ -23,14 +34,101 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: (
-              <Suspense fallback={<div>Loading...</div>}>
-                <CecilTheLion />
-              </Suspense>
-            ),
+            element: <CecilTheLion />,
           },
         ],
       },
+      {
+        path: "project-african-lions",
+        children: [
+          {
+            index: true,
+            element: <ProjectAfricanLions />,
+          },
+        ],
+      },
+      {
+        path: "akashingas",
+        children: [
+          {
+            index: true,
+            element: <Akashingas />,
+          },
+        ],
+      },
+      {
+        path: "cecil-ai",
+        children: [
+          {
+            index: true,
+            element: <CecilAI />,
+          },
+        ],
+      },
+      {
+        path: "justice-pour-l-enfance",
+        children: [
+          {
+            index: true,
+            element: <JusticePourEnfance />,
+          },
+        ],
+      },
+      {
+        path: "malaika",
+        children: [
+          {
+            index: true,
+            element: <Malaika />,
+          },
+        ],
+      },
+      {
+        path: "mighty-under-dogs",
+        children: [
+          {
+            index: true,
+            element: <MightyUnderDogs />,
+          },
+        ],
+      },
+      {
+        path: "the-kings-childrens-home",
+        children: [
+          {
+            index: true,
+            element: <TheKingsChildrensHome />,
+          },
+        ],
+      },
+      {
+        path: "sns",
+        children: [
+          {
+            index: true,
+            element: <SNS />,
+          },
+        ],
+      },
+      {
+        path: "icp-neurons",
+        children: [
+          {
+            index: true,
+            element: <ICPNodes />,
+          },
+        ],
+      },
+      {
+        path: "neuron",
+        children: [
+          {
+            index: true,
+            element: <Neuron />,
+          },
+        ],
+      },
+
       {
         path: "*",
         element: <div>Page not found</div>,

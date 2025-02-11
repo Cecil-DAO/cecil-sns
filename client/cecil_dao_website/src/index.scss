@@ -3,6 +3,20 @@ section {
   font-family: Oswald;
 }
 
+.daoText {
+  color: #57656F;
+  font-family: "Source Sans Pro", 'Open Sans', sans-serif, Oswald;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 6px;
+  position: 'absolute';
+  text-transform: uppercase;
+  left: '50%';
+  transform: 'translateX(-50%)';
+}
+
 .daoButton { 
   display: inline-flex;
   gap: 8px;
@@ -19,25 +33,13 @@ section {
   font-size: 14px;
 }
 
-.planetSection {
-  position: relative;
-  min-height: 100vh;
-
-  .backgroundText {
-    width: 100%;
-    font-family: Oswald;
-    font-size: 21vw;
-    font-weight: 700;
-    line-height: 21vw;
-    text-align: center;
-    color: #EFFFEEBF;
-
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate3d(-50%, - 50%, 0);
-
-  }
+.hero-text {
+  font-family: Oswald;
+  font-size: 16vw;
+  font-weight: 700;
+  line-height: 16vw;
+  text-align: center;
+  color: #EFFFEEBF;
 }
 
 .itemsSection {
@@ -176,6 +178,15 @@ footer {
     line-height: 40px;
 
   }
+
+  h4 {
+    font-family: Oswald;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #000000;
+  }
+
 }
 
 @media screen and (max-width: 767px) {
@@ -201,13 +212,17 @@ footer {
 
 /* The progress container (grey background) */
 .progress-container {
-  position: fixed;
+  position: sticky;
   border-radius: 2px;
   left: 60px;
   top: calc(50% - 105px);
   height: 210px;
   width: 4px;
   background: #ffffff;
+ 
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 /* The progress bar (scroll indicator) */

@@ -1,17 +1,8 @@
 .threeDPage {
-  // .backIcon {
-  //     position: absolute;
-  //     top: 100px;
-  //     left: 40px;
-  //     z-index: 10;
-  //     font-size: 30px;
-  //     cursor: pointer;
+  // .page {
+  //   width: 100%;
+  //   min-height: 100vh;
   // }
-
-  .page {
-    width: 100%;
-    min-height: 100vh;
-  }
 
   .bg {
     width: 100%;
@@ -26,7 +17,7 @@
 
   .canvas {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 112px);
     outline: none;
     z-index: 1;
     position: relative;
@@ -44,15 +35,13 @@
 
   .btn {
     visibility: hidden;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     position: absolute;
     z-index: 2;
     top: 0;
     left: 0;
-    // top: 10%;
-    // left: 23%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,19 +51,13 @@
       height 0.5s ease-in-out;
 
     .btnText {
-      // width: 190px;
-      width: max-content;
-      height: 30px;
-      font-size: 18px;
-      background: none;
-      // left: 20px;
-      // top: 30px;
-      top: 0;
-      // right: -210px;
-      transform: translateX(65%);
       position: absolute;
+      top: 50px;
+      width: max-content;
+      height: 32px;
+      font-size: 16px;
+      background: none;
       color: #333;
-      // text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
       animation: background-pan 3s linear infinite;
       display: flex;
       height: 36px;
@@ -89,12 +72,15 @@
       backdrop-filter: blur(8px);
       background-size: 200%;
       z-index: 2;
-      // // top: 10%;
-      // // left: 23%;
       cursor: pointer;
       transition:
         line-height 0.5s ease-in-out,
         font-size 0.5s ease-in-out;
+
+      @media screen and (min-width: 768px) {
+        top: 0px;
+        transform: translateX(65%);
+      }
 
       .text {
         font-family: "Open Sans";
@@ -118,8 +104,8 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: #ffffffbb;
   }
@@ -226,9 +212,7 @@
   border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.50);
   background: #E6FBF6BB;
-  position: absolute;
-  bottom: 20vh;
-  right: 48px;
+  bottom: 5vh;
   cursor: pointer;
 }
 
