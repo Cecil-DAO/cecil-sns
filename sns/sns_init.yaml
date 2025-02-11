@@ -52,7 +52,10 @@ name: Cecil The Lion DAO
 # Description of the SNS project.
 # Must be a string of max length = 2,000.
 description: >
-  The Cecil The Lion DAO project ....
+  The Cecil The Lion DAO project is the first-ever humanitarian DAO, an initiative dedicated to supporting vital humanitarian projects across the globe.
+  This unique organization was born from a place of deep compassion, inspired by the tragic and senseless killing of Cecil the lion, a symbol of majestic beauty and a stark reminder of the challenges facing our world.
+  The DAO stands as a testament to his legacy, channeling the grief and outrage into positive action.
+  Operating entirely on a non-profit basis, the DAO is committed to transparency and accountability, ensuring that every single contribution, no matter the size, directly and effectively benefits the projects it supports.
 
 # This is currently a placeholder field and must be left empty for now.
 Principals: []
@@ -74,11 +77,27 @@ NnsProposal:
 
   # The HTTPS address of additional content required to evaluate the NNS
   # proposal.
-  url: "https://forum.dfinity.org/t/ADD_LINK"
+  url: "https://forum.dfinity.org/t/ADD_LINK" # TODO ******************************************************
 
   # The description of the proposal. Must be a string of 10 to 2,000 bytes.
-  summary: >
-    # Proposal for SNS called Cecil The Lion DAO
+  summary: |
+    ## Cecil The Lion DAO SNS
+    Proposal to create an SNS for Cecil the Lion DAO.
+
+    ## The SNS will be initialized with the following parameters:
+    * CECIL total supply at genesis: 1_000_000 CECIL
+    * ICP to raise min: 3_000 ICP
+    * ICP to raise max: 300_000 ICP
+    * No neuron fund contribution
+    * Min number of tokens per contributor: 3 ICP
+    * Max number of tokens per contributor: 30_000 ICP
+    * Min number of participants: 3
+
+    ## Learn more
+    * [Cecil DAO website](https://cecildao.org/)
+    * [Cecil DAO whitepaper](https://cecildao.org/) # TODO ******************************************************
+    * [Cecil DAO on X](https://x.com/) # TODO ******************************************************
+    * [Cecil DAO on Telegram](https://t.me) # TODO ******************************************************
 
 
 # If the SNS launch attempt fails, control over the dapp canister(s) is given to
@@ -103,7 +122,7 @@ dapp_canisters:
   # IDs of the canisters comprising your to-be-decentralized dapp.
   #
   # For testing, propose_sns.sh will fill this in automatically.
-  - ebrqv-vaaaa-aaaal-qb6zq-cai
+  - ebrqv-vaaaa-aaaal-qb6zq-cai # TODO ******************************************************
 
 # Configuration of SNS tokens in the SNS Ledger canister deployed as part
 # of the SNS.
@@ -207,7 +226,7 @@ Voting:
       # This parameter sets the maximum dissolve delay a neuron can have.
       # When reached, the maximum dissolve delay bonus will be applied.
       # This field is specified as a duration. For example: "8 years".
-      duration: 3 yars
+      duration: 3 years
       # If a neuron's dissolve delay is `duration`, its voting power will
       # be increased by the dissolve delay `bonus` amount.
       # This field is specified as a percentage. For instance,
@@ -308,26 +327,28 @@ Distribution:
   # right after the SNS creation and thus includes the pre-initialization mode
   # period.
   #
-  Neurons:
+  Neurons: # TODO ******************************************************
     # For the actual SNS launch, you should replace this with one or more
     # principals of your intended genesis neurons.
     #
-    - principal: tbd
+    # DEF
+    - principal: vv54r-acuwj-wa5hz-ghytt-geecq-lt7oy-3u5we-myzpw-cylzp-uebfs-mqe
       stake: 7_500 tokens
       memo: 0
       dissolve_delay: 0 years
       vesting_period: 0 years
-    - principal: tbd
+    - principal: vv54r-acuwj-wa5hz-ghytt-geecq-lt7oy-3u5we-myzpw-cylzp-uebfs-mqe
       stake: 7_500 tokens
       memo: 1
       dissolve_delay: 3 years
       vesting_period: 0 years
-    - principal: tbd
+    # ORIGYN Foundation
+    - principal: nouv5-jovae-aqzq2-4ixng-ik7qt-ivwzu-gd6i7-bxohu-u4zpq-gcz2i-iqe
       stake: 7_500 tokens
       memo: 0
       dissolve_delay: 0 years
       vesting_period: 0 years
-    - principal: tbd
+    - principal: nouv5-jovae-aqzq2-4ixng-ik7qt-ivwzu-gd6i7-bxohu-u4zpq-gcz2i-iqe
       stake: 7_500 tokens
       memo: 1
       dissolve_delay: 3 years
@@ -346,9 +367,9 @@ Distribution:
     swap: 30_000 tokens # 3%
 
   # Checksum of the total number of tokens distributed in this section.
-  #     180 million    (dev neuron)
-  #     620 million    (governance)
-  # +   200 million    (swap)
+  #     30  thousand    (dev neuron)
+  # +   940 thousand    (governance)
+  # +   30  thousand    (swap)
   # --------------
   total: 1_000_000 tokens
 
@@ -362,7 +383,7 @@ Swap:
   # to the deadline or the maximum target being reached, and if there are less
   # than `minimum_participants` (here, only direct participants are counted),
   # the swap will be committed.
-  minimum_participants: 8
+  minimum_participants: 3
 
   # Minimum amount of ICP from direct participants. This amount is required for
   # the swap to succeed. If this amount is not achieved, the swap will be
