@@ -3,6 +3,8 @@ import "../../index.scss";
 import Menu from "@components/Menu/Menu";
 import { useEffect } from "react";
 
+// TODO add external links, add video yt and improve content display
+
 export const LionPage = () => {
   useEffect(() => {
     window.onscroll = function () {
@@ -24,16 +26,10 @@ export const LionPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="container mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div style={{ textAlign: "center" }}>
-          <div className="progress-container">
-            <div className="progress-section" />
-            <div className="progress-section" style={{ top: "30%" }} />
-            <div className="progress-section" style={{ top: "65%" }} />
-            <div className="progress-bar" id="progressBar" />
-          </div>
-          <img src="/logo2.png" alt="" style={{ height: 32 }} />
+          <img src="/brand-origyn.png" alt="" style={{ height: 32 }} />
           <Link to="/" className="backButton flex gap-4 mt-4">
             <img
               width={8}
@@ -44,8 +40,16 @@ export const LionPage = () => {
             />{" "}
             back to homepage
           </Link>
-          <img
-            src="/lionVector.png"
+
+          {/* <div className="progress-container">
+            <div className="progress-section" />
+            <div className="progress-section" style={{ top: "30%" }} />
+            <div className="progress-section" style={{ top: "65%" }} />
+            <div className="progress-bar" id="progressBar" />
+          </div> */}
+
+          {/* <img
+            src="/projects/img-cecil-the-lion-vector.png"
             alt=""
             style={{ margin: "40px auto", maxHeight: "60vh" }}
           />
@@ -55,32 +59,31 @@ export const LionPage = () => {
             <span>
               <b>DAO Voting</b> – Coming Soon
             </span>
-          </div>
+          </div> */}
         </div>
-        <div
-          className="bg-white rounded-lg"
-          style={{ margin: "-18px -18px -18px 0" }}
-        >
+        <div className="bg-white rounded-lg my-8 md:my-[-18px] md:rounded-none">
           <div className="flex justify-end p-8">
             <Menu />
           </div>
           <div className="flex flex-col gap-10 items-center article">
-            <h2>Cecil the lion DAO</h2>
+            <h2>Justice pour L'enfance</h2>
             <p>
-              There is a world in which the material and the virtual blend. In
-              Hybrid Galaxies, perceptions and experiences are transformed.
-              Creativity becomes limitless and dreams may come true.
+              Under the leadership of lawyer Geneviève Sroussi and activist
+              journalist Karl0, Justice for Children was born. This non-profit
+              association brings together a collective of lawyers specializing
+              in the defense of children, present throughout France.
             </p>
-            <img className="mt-8" src="/lionPhoto.png" alt="" />
-            <h3>The story of Cecil</h3>
+            <img
+              className="mt-8 max-w-xs rounded-xl"
+              src="/projects/logo-justice-pour-enfance.svg"
+              alt=""
+            />
+            {/* <h3>The story of Cecil</h3> */}
             <p>
-              He was one of the most magnificent creatures in the world:
-              majestic, superb, and moved with the grace of a master. Evoking
-              the iconic Abyssinian lion of Ethiopia, it was, among other
-              things, the splendid black mane of Cecil, the number one
-              attraction in the vast Hwange National Park, that made his fame.
+              We have set ourselves the mission of providing legal assistance to
+              all children. Because it's time for the shame to change sides.
             </p>
-            <p>
+            {/* <p>
               Cecil was beloved by the 50,000 tourists who visit Hwange each
               year. This 13-year-old male lion was the father of a dozen cubs,
               all born in the park, the largest wildlife reserve in the country.
@@ -119,11 +122,11 @@ export const LionPage = () => {
             </p>
             <div className="button" style={{ width: "100%" }}>
               Learn more about the P.A.L. association
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

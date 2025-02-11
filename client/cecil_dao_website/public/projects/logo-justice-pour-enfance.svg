@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 947.08 312.78" style="background-color:black">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.09em;
+      }
+
+      .cls-2 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-3 {
+        font-size: 65.54px;
+      }
+
+      .cls-3, .cls-4, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-3, .cls-5 {
+        font-family: HelveticaNeue-CondensedBlack, 'Helvetica Neue';
+        font-weight: 800;
+      }
+
+      .cls-4 {
+        font-family: HelveticaNeue-Light, 'Helvetica Neue';
+        font-size: 171.14px;
+        font-weight: 300;
+      }
+
+      .cls-5 {
+        font-size: 199.72px;
+      }
+    </style>
+  </defs>
+  <text class="cls-4" transform="translate(13.8 129.84)"><tspan x="0" y="0">JUSTICE</tspan></text>
+  <text class="cls-5" transform="translate(73.18 295.13)"><tspan class="cls-1" x="0" y="0">L</tspan><tspan x="74.1" y="0">’EN</tspan><tspan class="cls-2" x="344.11" y="0">F</tspan><tspan x="432.79" y="0">ANCE</tspan></text>
+  <text class="cls-3" transform="translate(58.57 298.59) rotate(-90)"><tspan x="0" y="0">POUR</tspan></text>
+</svg>
