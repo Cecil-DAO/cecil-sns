@@ -16,7 +16,10 @@ export const ICPNodesPage = () => {
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
-      document.getElementById("progressBar").style.height = scrolled + "%";
+      const progressBar = document.getElementById("progressBar");
+      if (progressBar) {
+        progressBar.style.height = scrolled + "%";
+      }
     }
   }, []);
 
@@ -24,7 +27,11 @@ export const ICPNodesPage = () => {
     <div className="container mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div style={{ textAlign: "center" }}>
-          <img src="/brand-origyn.png" alt="" style={{ height: 32 }} />
+          <img
+            src="/logo-cecil-dao.png"
+            alt="Logo Cecil DAO"
+            className="h-[48px]"
+          />
           <Link to="/" className="backButton flex gap-4 mt-4">
             <img
               width={8}
@@ -45,9 +52,9 @@ export const ICPNodesPage = () => {
           </div>
 
           <img
-            src="/icp_logo_image.png"
+            src="/logo-icp.png"
             alt=""
-            style={{ margin: "15vh auto", maxHeight: "60vh" }}
+            style={{ margin: "15vh auto", maxHeight: "40vh" }}
           />
           <br />
         </div>
@@ -68,10 +75,14 @@ export const ICPNodesPage = () => {
                 rel="noreferrer"
                 className="text-[#555cf8] hover:underline"
               >
-                <b>Decentralised Entities Foundation</b>
+                <b>Decentralized Entities Foundation</b>
               </a>
             </p>
-            <img className="mt-8" src="/NodesMap.png" alt="" />
+            <img
+              className="mt-8 max-w-md rounded-xl"
+              src="/img-icp-nodes-map.png"
+              alt="ICP Nodes map around the world"
+            />
             <h3>Why ICP and Why Nodes?</h3>
             <p>
               The Internet Computer is a revolutionary blockchain platform that

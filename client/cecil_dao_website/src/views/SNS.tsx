@@ -16,7 +16,10 @@ const SNS = () => {
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
-      document.getElementById("progressBar").style.height = scrolled + "%";
+      const progressBar = document.getElementById("progressBar");
+      if (progressBar) {
+        progressBar.style.height = scrolled + "%";
+      }
     }
   }, []);
 
@@ -24,7 +27,11 @@ const SNS = () => {
     <div className="container mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div style={{ textAlign: "center" }}>
-          <img src="/brand-origyn.png" alt="" style={{ height: 32 }} />
+          <img
+            src="/logo-cecil-dao.png"
+            alt="Logo Cecil DAO"
+            className="h-[48px]"
+          />
           <Link to="/" className="backButton flex gap-4 mt-4">
             <img
               width={8}
@@ -43,9 +50,9 @@ const SNS = () => {
           </div>
 
           <img
-            src="/secondLion.png"
+            src="/projects/img-cecil-the-lion-standing.png"
             alt=""
-            style={{ margin: "40px auto", maxHeight: "60vh" }}
+            style={{ margin: "40px auto", maxHeight: "40vh" }}
           />
           <br />
         </div>
