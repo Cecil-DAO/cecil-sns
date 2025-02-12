@@ -6,39 +6,63 @@ import {
   SceneLoader,
   Vector3,
   Scene,
+  ArcRotateCamera,
+  Animation,
+  CubicEase,
+  EasingFunction,
+  AbstractMesh,
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
 import SceneComponent from "babylonjs-hook";
+import { Link } from "react-router-dom";
+
 import "./index.scss";
-import { useNavigate } from "react-router-dom";
+
+ArcRotateCamera.prototype.spinTo = function (
+  targetProperty: string,
+  to: number
+) {
+  const ease = new CubicEase();
+  ease.setEasingMode(EasingFunction.EASINGMODE_EASEINOUT);
+  Animation.CreateAndStartAnimation(
+    "anim",
+    this,
+    targetProperty,
+    120,
+    120,
+    this[targetProperty],
+    to,
+    0,
+    ease
+  );
+};
+
+interface Position {
+  alpha: number;
+  beta: number;
+}
+
+const handleOnClickBtnSpot = (camera: ArcRotateCamera, pos: Position) => {
+  camera.spinTo("alpha", pos.alpha);
+  camera.spinTo("beta", pos.beta);
+};
 
 const PlanetModel = () => {
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState("");
-  const navigate = useNavigate();
   const [, setProgress] = useState(0);
 
-  const loader = useRef(null);
-  const lionBtn = useRef(null);
-
-  const timeout = useRef(null);
-  const defaultConfig = {
-    alpha: Math.PI / 2,
-    beta: Math.PI / 2,
-    radius: 70,
-    target: new Vector3(0.065, 0.047, 0.035),
-  };
-  const lionConfig = {
-    alpha: Math.PI / 2,
-    beta: Math.PI / 3,
-    radius: 25,
-    target: new Vector3(0.515, 10.346, 0.486),
-  };
+  const loader = useRef<HTMLDivElement>(null);
+  const btnCecilTheLion = useRef<HTMLDivElement>(null);
+  const btnJusticeEnfance = useRef<HTMLDivElement>(null);
+  const btnMightyUnderDogs = useRef<HTMLDivElement>(null);
+  const btnAkashingas = useRef<HTMLDivElement>(null);
+  const btnKingsChildrensHome = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const matchCatch = () => {
       caches.open("my-cache").then((cache) => {
-        const request = new Request("Animals_d.glb", { method: "GET" });
+        const request = new Request("globe.glb", { method: "GET" });
         cache.match(request).then((response) => {
           if (response) {
             response.blob().then((data) => {
@@ -56,7 +80,7 @@ const PlanetModel = () => {
   }, []);
 
   const init = () => {
-    const url = "Animals_d.glb";
+    const url = "globe.glb";
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
@@ -75,7 +99,7 @@ const PlanetModel = () => {
           type: "application/octet-stream",
         });
 
-        console.log("blob", arrayBuffer, blob);
+        // console.log("blob", arrayBuffer, blob);
         caches.open("my-cache").then((cache) => {
           cache.put(url, new Response(blob));
         });
@@ -92,17 +116,12 @@ const PlanetModel = () => {
   };
 
   const onSceneReady = async (scene: Scene) => {
-    scene.createDefaultCamera();
+    scene.createDefaultCamera(true, true, true);
     scene.clearColor = new Color4(0, 0, 0, 0);
     SceneLoader.ShowLoadingScreen = false;
 
-    // const modelRes = nowModal.current as ArrayBufferView;
     const modelRes = url;
-    // const modelRes = 'Animals_d.glb';
-    // const fileSize = await getFileSize();
-
-    const env = new HDRCubeTexture("env.hdr", scene, 128);
-
+    const env = new HDRCubeTexture("globe-env.hdr", scene, 128);
     const engine = scene.getEngine();
     const canvas = document.getElementById("globe-canvas") as HTMLElement;
 
@@ -111,13 +130,28 @@ const PlanetModel = () => {
       modelRes,
       scene,
       (meshes) => {
-        scene.createDefaultCamera(true, true, true);
-        const camera = scene.cameras[0];
-        camera.fov = 0.8;
-        lionBtn.current.style.visibility = "visible";
-        loader.current.style.visibility = "hidden";
+        if (!scene.activeCamera) return null;
+        if (btnCecilTheLion.current === null) return null;
+        if (btnJusticeEnfance.current === null) return null;
+        if (btnMightyUnderDogs.current === null) return null;
+        if (btnAkashingas.current === null) return null;
+        if (btnKingsChildrensHome.current === null) return null;
+        if (loader.current === null) return null;
+
+        const camera = scene.activeCamera;
+        (camera as ArcRotateCamera).noRotationConstraint = true;
+        (camera as ArcRotateCamera).upperBetaLimit = 360;
+        (camera as ArcRotateCamera).lowerBetaLimit = -360;
+
         camera.inputs.removeByType("ArcRotateCameraMouseWheelInput");
-        camera.inputs.removeByType(camera.inputs.attached.mousewheel);
+
+        btnCecilTheLion.current.style.visibility = "visible";
+        btnJusticeEnfance.current.style.visibility = "visible";
+        btnMightyUnderDogs.current.style.visibility = "visible";
+        btnAkashingas.current.style.visibility = "visible";
+        btnKingsChildrensHome.current.style.visibility = "visible";
+        loader.current.style.visibility = "hidden";
+
         scene.environmentTexture = env;
         const light = new DirectionalLight(
           "DirectionalLight",
@@ -125,91 +159,151 @@ const PlanetModel = () => {
           scene
         );
         light.intensity = 10;
-        // scene.onPointerObservable.add((pointerInfo) => {
-        //   if (
-        //     [
-        //       PointerEventTypes.POINTERUP,
-        //       PointerEventTypes.POINTERWHEEL,
-        //     ].includes(pointerInfo.type)
-        //   ) {
-        //     if (timeout !== null) {
-        //       clearTimeout(timeout.current);
-        //     }
-        //     timeout.current = setTimeout(() => {
-        //       camera.spinTo("alpha", defaultConfig.alpha, 120);
-        //       camera.spinTo("beta", defaultConfig.beta, 120);
-        //       camera.spinTo("radius", defaultConfig.radius, 120);
-        //       camera.spinTo("target", defaultConfig.target, 120);
-        //     }, 2000);
-        //   }
-        //   if (pointerInfo.type === PointerEventTypes.POINTERDOWN) {
-        //     if (timeout !== null) {
-        //       clearTimeout(timeout.current);
-        //     }
-        //   }
-        // });
-        let lion = {};
+
+        let lion: AbstractMesh | null = null;
+        let horse: AbstractMesh | null = null;
+        let akashingas: AbstractMesh | null = null;
+        let southAfrica: AbstractMesh | null = null;
+
         meshes.meshes.forEach((item) => {
+          // console.log(item.name);
           if (item.name === "Object_7") {
-            const centerWorld = item.getBoundingInfo().boundingBox.centerWorld;
-            camera.target = centerWorld;
-            camera.radius = defaultConfig.radius;
+            (camera as ArcRotateCamera).radius = 60;
+            (camera as ArcRotateCamera).alpha = Math.PI / 2;
+            // (camera as ArcRotateCamera).target =
+            //   root.getBoundingInfo().boundingBox.centerWorld;
           }
-          if (item.name === "Box001_primitive0") lion = item;
+          if (item.name === "Box001_primitive0") lion = item as AbstractMesh;
+          if (item.name === "actor:Horse") horse = item as AbstractMesh;
+          if (item.name === "Object007.005_primitive0")
+            akashingas = item as AbstractMesh;
+          if (item.name === "Object010.003_primitive0")
+            southAfrica = item as AbstractMesh;
         });
-        camera.lowerRadiusLimit = 50;
-        camera.upperRadiusLimit = 120;
-        camera.alpha = defaultConfig.alpha;
+
         setInterval(() => {
           scene.animationGroups[0]?.stop();
           scene.animationGroups[0]?.play();
         }, 11500);
 
-        lionBtn.current.onclick = () => {
-          navigate("/cecil-the-lion");
-          clearTimeout(timeout.current);
-          camera.spinTo("alpha", lionConfig.alpha, 120);
-          camera.spinTo("beta", lionConfig.beta, 120);
-          camera.spinTo("radius", lionConfig.radius, 120);
-          camera.spinTo("target", lionConfig.target, 120);
-          // lionBtn.current.style.visibility = 'hidden';
-          camera.detachControl();
-          canvas.onclick = () => {
-            camera.spinTo("alpha", defaultConfig.alpha, 120);
-            camera.spinTo("beta", defaultConfig.beta, 120);
-            camera.spinTo("radius", defaultConfig.radius, 120);
-            camera.spinTo("target", defaultConfig.target, 120);
-            camera.attachControl();
-            canvas.onclick = null;
-          };
+        btnCecilTheLion.current.onclick = () =>
+          handleOnClickBtnSpot(camera as ArcRotateCamera, {
+            alpha: Math.PI / 2,
+            beta: Math.PI / 2,
+          });
 
-          setTimeout(() => {
-            camera.spinTo("alpha", defaultConfig.alpha, 120);
-            camera.spinTo("beta", defaultConfig.beta, 120);
-            camera.spinTo("radius", defaultConfig.radius, 120);
-            camera.spinTo("target", defaultConfig.target, 120);
-          }, 2000);
-        };
+        btnJusticeEnfance.current.onclick = () =>
+          handleOnClickBtnSpot(camera as ArcRotateCamera, {
+            alpha: -0.015413157082574928,
+            beta: -0.25743827419491183,
+          });
+
+        btnMightyUnderDogs.current.onclick = () =>
+          handleOnClickBtnSpot(camera as ArcRotateCamera, {
+            alpha: 0.99,
+            beta: -1.81,
+          });
+
+        btnAkashingas.current.onclick = () =>
+          handleOnClickBtnSpot(camera as ArcRotateCamera, {
+            alpha: 0.29,
+            beta: 0.34,
+          });
+
+        btnKingsChildrensHome.current.onclick = () =>
+          handleOnClickBtnSpot(camera as ArcRotateCamera, {
+            alpha: 0.39,
+            beta: 1.19,
+          });
+
         scene.registerBeforeRender(() => {
-          const pos = Vector3.Project(
-            new Vector3(-2, 9, 8),
-            lion.getWorldMatrix(),
-            scene.getTransformMatrix(),
-            camera.viewport.toGlobal(
-              engine.getRenderWidth(true),
-              engine.getRenderHeight(true)
-            )
-          );
+          // console.log((camera as ArcRotateCamera).position;
+          // console.log(camera.alpha, camera.beta);
+
+          if (lion === null) return null;
+          if (horse === null) return null;
+          if (akashingas === null) return null;
+          if (southAfrica === null) return null;
+
+          if (btnCecilTheLion.current === null) return null;
+          if (btnJusticeEnfance.current === null) return null;
+          if (btnMightyUnderDogs.current === null) return null;
+          if (btnAkashingas.current === null) return null;
+          if (btnKingsChildrensHome.current === null) return null;
+
           const scale = window.devicePixelRatio;
           const initscale =
             scale === 1 ? 2 : scale === 2 ? 1 : scale === 3 ? 2 / 3 : 1;
 
-          lionBtn.current.style.transform =
-            "translate3d(" +
-            ((canvas.offsetLeft + pos.x) / 2) * initscale +
-            "px, " +
-            ((canvas.offsetTop + pos.y) / 2) * initscale +
-            "px, 0px)";
+          [
+            [
+              btnCecilTheLion,
+              Vector3.Project(
+                new Vector3(-1, 5, 8),
+                lion.getWorldMatrix(),
+                scene.getTransformMatrix(),
+                camera.viewport.toGlobal(
+                  engine.getRenderWidth(true),
+                  engine.getRenderHeight(true)
+                )
+              ),
+            ],
+            [
+              btnJusticeEnfance,
+              Vector3.Project(
+                new Vector3(10, 0, 0),
+                lion.getWorldMatrix(),
+                scene.getTransformMatrix(),
+                camera.viewport.toGlobal(
+                  engine.getRenderWidth(true),
+                  engine.getRenderHeight(true)
+                )
+              ),
+            ],
+            [
+              btnMightyUnderDogs,
+              Vector3.Project(
+                new Vector3(-150, 0, -120),
+                horse.getWorldMatrix(),
+                scene.getTransformMatrix(),
+                camera.viewport.toGlobal(
+                  engine.getRenderWidth(true),
+                  engine.getRenderHeight(true)
+                )
+              ),
+            ],
+            [
+              btnAkashingas,
+              Vector3.Project(
+                new Vector3(0, 0, 0),
+                akashingas.getWorldMatrix(),
+                scene.getTransformMatrix(),
+                camera.viewport.toGlobal(
+                  engine.getRenderWidth(true),
+                  engine.getRenderHeight(true)
+                )
+              ),
+            ],
+            [
+              btnKingsChildrensHome,
+              Vector3.Project(
+                new Vector3(0, 0, 0),
+                southAfrica.getWorldMatrix(),
+                scene.getTransformMatrix(),
+                camera.viewport.toGlobal(
+                  engine.getRenderWidth(true),
+                  engine.getRenderHeight(true)
+                )
+              ),
+            ],
+          ].forEach(([btn, pos]) => {
+            (btn as React.RefObject<HTMLDivElement>).current!.style.transform =
+              "translate3d(" +
+              ((canvas.offsetLeft + (pos as Vector3).x) / 2) * initscale +
+              "px, " +
+              ((canvas.offsetTop + (pos as Vector3).y) / 2) * initscale +
+              "px, 0px)";
+          });
         });
       },
       undefined,
@@ -231,12 +325,54 @@ const PlanetModel = () => {
               onSceneReady={onSceneReady}
               className="canvas lg:max-h-[1000px]"
             />
-            <div className="btn" ref={lionBtn}>
+            <div className="btn" ref={btnCecilTheLion}>
               <div className="btnDot">
                 <div className="spot" />
               </div>
               <div className="btnText">
-                <div className="text">Cecil The Lion Project</div>
+                <Link to="/cecil-ai" className="text">
+                  Cecil AI Agent
+                </Link>
+              </div>
+            </div>
+            <div className="btn" ref={btnJusticeEnfance}>
+              <div className="btnDot">
+                <div className="spot" />
+              </div>
+              <div className="btnText">
+                <Link to="/justice-pour-l-enfance" className="text">
+                  Justice Pour L'Enfance
+                </Link>
+              </div>
+            </div>
+            <div className="btn" ref={btnMightyUnderDogs}>
+              <div className="btnDot">
+                <div className="spot" />
+              </div>
+              <div className="btnText">
+                <Link to="/mighty-under-dogs" className="text">
+                  MightyUnderDogs
+                </Link>
+              </div>
+            </div>
+            <div className="btn" ref={btnAkashingas}>
+              <div className="btnDot">
+                <div className="spot" />
+              </div>
+              <div className="btnText">
+                <Link to="/akashingas" className="text">
+                  Akashingas
+                </Link>
+              </div>
+            </div>
+            <div className="btn" ref={btnKingsChildrensHome}>
+              <div className="btnDot">
+                <div className="spot" />
+              </div>
+              <div className="btnText">
+                <Link to="/akashingas" className="text">
+                  King's Childrens Home
+                </Link>
               </div>
             </div>
           </div>

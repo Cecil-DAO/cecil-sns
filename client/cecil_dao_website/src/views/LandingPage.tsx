@@ -9,24 +9,15 @@ export const LandingPage = () => {
   return (
     <div className="container mx-auto">
       <div className="flex flex-col min-h-screen">
-        <header className="flex justify-between p-4">
+        <header className="flex justify-between items-center p-4">
           <img
             src="/logo-cecil-dao.png"
             alt="Logo Cecil DAO"
             className="h-[48px]"
           />
-          <img
-            className="hidden md:block"
-            src="/TheGoodDAO.svg"
-            alt=""
-            style={{
-              height: 32,
-              width: 147,
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          />
+          <div className="hidden md:block font-bold text-content/60 text-sm tracking-wider">
+            Cecil The Lion DAO
+          </div>
           <Menu />
         </header>
         <section className="relative flex-grow">
@@ -59,15 +50,31 @@ export const LandingPage = () => {
             Learn more
           </Link>
         </div>
+
+        <div className="">
+          <div className="mt-8 lg:mt-32 mb-16 text-6xl text-center font-bold font-oswald tracking-wider">
+            Supported Projects
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-20 md:gap-80">
+          <div className="flex flex-col gap-20 md:gap-40">
+            <Card
+              className=""
+              classNameImg="object-none"
+              img="/projects/logo-cecil-ai-lg.png"
+              title="Cecil AI Agent"
+              description="Imagine a world where humanitarian aid reaches those who need it most, not hampered by red tape or human error, but guided by unwavering intelligence and compassion. That world is within reach with Cecil, the AI agent poised to revolutionize humanitarian aid. "
+              link="/cecil-ai"
+            />
             <Card
               className=""
               img="/projects/img-cecil-the-lion.png"
               title="Protect African Lions"
               description="P.A.L is a non- profit organization whose mission is to ultimately get protection status for the African Lion. We raise awareness through developing working relationships of mutual support with other organizations who share our goals."
-              link="/project-african-lions"
+              link="/protect-african-lions"
             />
+
             <Card
               className=""
               img="/projects/logo-justice-pour-enfance.svg"
@@ -75,13 +82,7 @@ export const LandingPage = () => {
               description="Under the leadership of lawyer Geneviève Sroussi and activist journalist Karl0, Justice for Children was born. This non-profit association brings together a collective of lawyers specializing in the defense of children, present throughout France."
               link="/justice-pour-l-enfance"
             />
-            <Card
-              className=""
-              img="/projects/img-akashingas.png"
-              title="Akashingas"
-              description='This project aims to support the Akashingas ("the brave") women rangers in Zimbabwe, who dedicate their lives to defending nature reserves against poaching activities. These women, who often come from difficult backgrounds, have become an example for local communities.'
-              link="/akashingas"
-            />
+
             <Card
               className=""
               img="/projects/img-kings-childrens-home.avif"
@@ -91,14 +92,15 @@ export const LandingPage = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-20 md:gap-80 mt-16 md:mt-80">
+          <div className="flex flex-col gap-20 md:gap-40 mt-16 md:mt-80">
             <Card
               className=""
-              img="/projects/img-cecil-the-lion.png"
-              title="Cecil AI"
-              description="Imagine a world where humanitarian aid reaches those who need it most, not hampered by red tape or human error, but guided by unwavering intelligence and compassion. That world is within reach with Cecil, the AI agent poised to revolutionize humanitarian aid. "
-              link="/cecil-ai"
+              img="/projects/img-akashingas.png"
+              title="Akashingas"
+              description='This project aims to support the Akashingas ("the brave") women rangers in Zimbabwe, who dedicate their lives to defending nature reserves against poaching activities. These women, who often come from difficult backgrounds, have become an example for local communities.'
+              link="/akashingas"
             />
+
             <Card
               className=""
               img="/projects/img-malaika.png"
@@ -149,6 +151,7 @@ export const LandingPage = () => {
             DISCOVER MORE <img src="/linkArrow.svg" alt="" />
           </Link>
         </div>
+
         <div
           className="bg-white rounded-lg h-full flex flex-col gap-8 items-center Section"
           style={{ padding: "75px 40px" }}
@@ -163,6 +166,7 @@ export const LandingPage = () => {
             DISCOVER MORE <img src="/linkArrow.svg" alt="" />
           </Link>
         </div>
+
         <div
           className="bg-white rounded-lg h-full flex flex-col gap-8 items-center Section"
           style={{ padding: "75px 40px" }}
@@ -184,7 +188,7 @@ export const LandingPage = () => {
         className="bg-white rounded-lg flex items-center mt-20"
         style={{ justifyContent: "space-between", padding: "16px 32px" }}
       >
-        <p>©2025 CecilDAO</p>
+        <p>@CecilDAO</p>
         <div className="flex gap-4">
           <img src="/xIcon.svg" alt="" />
           <img src="/instIcon.svg" alt="" />

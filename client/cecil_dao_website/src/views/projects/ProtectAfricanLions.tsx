@@ -47,8 +47,8 @@ export const LionPage = () => {
 
           <div className="progress-container">
             <div className="progress-section" />
-            <div className="progress-section" style={{ top: "30%" }} />
-            <div className="progress-section" style={{ top: "65%" }} />
+            {/* <div className="progress-section" style={{ top: "30%" }} /> */}
+            <div className="progress-section" style={{ top: "100%" }} />
             <div className="progress-bar" id="progressBar" />
           </div>
 
@@ -70,7 +70,7 @@ export const LionPage = () => {
             <Menu />
           </div>
           <div className="flex flex-col gap-10 items-center article">
-            <h2>Project African Lions</h2>
+            <h2>Protect African Lions</h2>
             <p>
               P.A.L is a non- profit organization whose mission is to ultimately
               get protection status for the African Lion. We raise awareness
@@ -88,14 +88,31 @@ export const LionPage = () => {
             />
             {/* <h3>The story of Cecil</h3> */}
             <p>
-              The Cecil DAO supports the P.A.L. Foundation and shares the values
-              and urgency of helping the "royal" species of the jungle. The
-              P.A.L. Foundation is fighting to save the lions of South Africa.
+              The Cecil DAO supports the{" "}
+              <a
+                href="https://protectingafricanlions.org/mission"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#73B655] hover:underline font-bold"
+              >
+                P.A.L. Foundation
+              </a>{" "}
+              and shares the values and urgency of helping the "royal" species
+              of the jungle. The P.A.L. Foundation is fighting to save the lions
+              of South Africa.
             </p>
             <p>
               This project is in line with the mission set out by the famous
-              painter Conor Mccreedy for the preservation and enhancement of the
-              animal kingdom.
+              painter{" "}
+              <a
+                href="https://conormccreedy.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#73B655] hover:underline font-bold"
+              >
+                Conor Mccreedy
+              </a>{" "}
+              for the preservation and enhancement of the animal kingdom.
             </p>
             <p>
               For DAO Cecil, it's important to work with and support

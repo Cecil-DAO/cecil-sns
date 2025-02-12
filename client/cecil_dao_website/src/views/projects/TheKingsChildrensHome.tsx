@@ -45,8 +45,7 @@ export const LionPage = () => {
 
           <div className="progress-container">
             <div className="progress-section" />
-            <div className="progress-section" style={{ top: "30%" }} />
-            <div className="progress-section" style={{ top: "65%" }} />
+            <div className="progress-section" style={{ top: "100%" }} />
             <div className="progress-bar" id="progressBar" />
           </div>
 
@@ -82,6 +81,16 @@ export const LionPage = () => {
               src="/projects/img-kings-childrens-home.avif"
               alt=""
             />
+            <div className="mt-8 container-iframe">
+              <iframe
+                className="responsive-iframe"
+                src="https://www.youtube.com/embed/iUEHsJYQ1Nc?si=9uWi0i1oq2iYJ8Mu"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>

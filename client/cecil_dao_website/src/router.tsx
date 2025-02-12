@@ -8,7 +8,7 @@ import Layout from "@components/Layout";
 import LandingPage from "views/LandingPage";
 
 import CecilTheLion from "@views/projects/CecilTheLion";
-import ProjectAfricanLions from "@views/projects/ProjectAfricanLions";
+import ProtectAfricanLions from "@views/projects/ProtectAfricanLions";
 import Akashingas from "@views/projects/Akashingas";
 import CecilAI from "@views/projects/CecilAI";
 import JusticePourEnfance from "@views/projects/JusticePourEnfance";
@@ -39,11 +39,11 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "project-african-lions",
+        path: "protect-african-lions",
         children: [
           {
             index: true,
-            element: <ProjectAfricanLions />,
+            element: <ProtectAfricanLions />,
           },
         ],
       },

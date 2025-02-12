@@ -63,8 +63,8 @@ export const LionPage = () => {
           <div className="flex flex-col gap-10 items-center article">
             <h2>Mighty Under Dogs</h2>
             <p>
-              Lead by Timmy Hazelip and dedicated team of surfers who understand
-              and share the healing powers of ocean therapy. Breeding
+              Lead by <b>Timmy Hazelip</b> and dedicated team of surfers who
+              understand and share the healing powers of ocean therapy. Breeding
               confidence, one wave at a time.
             </p>
             <img
@@ -84,12 +84,24 @@ export const LionPage = () => {
               memories and instilling happiness through surfing, things that
               money can’t buy.
             </p>
-            {/* <p>
-              <b>Efforts that we support through the P.A.L. association.</b>
-            </p>
-            <div className="button" style={{ width: "100%" }}>
-              Learn more about the P.A.L. association
-            </div> */}
+            <a
+              href="https://www.malibu.org/list/member/mighty-under-dogs-3088"
+              target="_blank"
+              rel="noreferrer"
+              className="button w-full"
+            >
+              Visit Mighty Under Dogs
+            </a>
+            <div className="mt-8 container-iframe">
+              <iframe
+                className="responsive-iframe"
+                src="https://www.youtube.com/embed/7HrSC0KXOkw?si=H-j0HDsXS-QYxfP6"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>

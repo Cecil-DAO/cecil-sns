@@ -73,9 +73,9 @@ export const ICPNodesPage = () => {
                 href="https://defoundation.ch"
                 target="_blank"
                 rel="noreferrer"
-                className="text-[#555cf8] hover:underline"
+                className="text-[#73B655] hover:underline font-bold"
               >
-                <b>Decentralized Entities Foundation</b>
+                Decentralized Entities Foundation
               </a>
             </p>
             <img

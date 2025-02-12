@@ -17,24 +17,15 @@ const Menu = () => {
         />
       </div>
       <div className={`overlayMenu ${isOpened && "opened"}`}>
-        <div className="menuHeader">
+        <div className="flex justify-between items-center">
           <img
             src="/logo-cecil-dao.png"
             alt="Logo Cecil DAO"
             className="h-[48px]"
           />
-          <img
-            className="hidden md:block"
-            src="/TheGoodDAO.svg"
-            alt=""
-            style={{
-              height: 32,
-              width: 147,
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          />
+          <div className="hidden md:block font-bold text-content/60 text-sm tracking-wider">
+            Cecil The Lion DAO
+          </div>
           <img
             width={40}
             height={40}
@@ -45,7 +36,7 @@ const Menu = () => {
           />
         </div>
         <div className="menuItems">
-          <NavLink to="/project-african-lions">Project African Lions</NavLink>
+          <NavLink to="/protect-african-lions">Protect African Lions</NavLink>
           <NavLink to="/cecil-ai">Cecil AI</NavLink>
           <NavLink to="/justice-pour-l'enfance">Justice pour L'enfance</NavLink>
           <NavLink to="/malaika">Malaika</NavLink>
@@ -65,7 +56,7 @@ const Menu = () => {
               <img src="/xIcon.svg" alt="" />
               <img src="/instIcon.svg" alt="" />
             </div>
-            <p className="hidden md:block">@ArtDao – Privacy Policy</p>
+            <p className="hidden md:block">@CecilDAO</p>
           </div>
         </div>
       </div>
