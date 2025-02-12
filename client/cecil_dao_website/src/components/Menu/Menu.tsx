@@ -37,7 +37,7 @@ const Menu = () => {
         </div>
         <div className="menuItems">
           <NavLink to="/protect-african-lions">Protect African Lions</NavLink>
-          <NavLink to="/cecil-ai">Cecil AI</NavLink>
+          <NavLink to="/cecil-ai">Cecil AI Agent</NavLink>
           <NavLink to="/justice-pour-l'enfance">Justice pour L'enfance</NavLink>
           <NavLink to="/malaika">Malaika</NavLink>
           <NavLink to="/akashingas">Akashingas</NavLink>
