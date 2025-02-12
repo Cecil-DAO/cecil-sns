@@ -73,6 +73,8 @@ export const NeuronPage = () => {
               <a
                 href="https://dashboard.internetcomputer.org/sns/leu43-oiaaa-aaaaq-aadgq-cai"
                 target="_blank"
+                rel="noreferrer"
+                className="text-[#73B655] hover:underline font-bold"
               >
                 ORIGYN governance network
               </a>

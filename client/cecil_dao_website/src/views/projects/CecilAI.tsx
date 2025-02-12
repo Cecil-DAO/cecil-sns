@@ -47,30 +47,22 @@ export const LionPage = () => {
 
           <div className="progress-container">
             <div className="progress-section" />
-            <div className="progress-section" style={{ top: "30%" }} />
-            <div className="progress-section" style={{ top: "65%" }} />
+            <div className="progress-section" style={{ top: "100%" }} />
             <div className="progress-bar" id="progressBar" />
           </div>
 
-          {/* <img
-            src="/projects/img-cecil-the-lion-vector.png"
+          <img
+            src="/projects/img-cecil-the-lion-standing.png"
             alt=""
-            style={{ margin: "40px auto", maxHeight: "60vh" }}
+            style={{ margin: "40px auto", maxHeight: "40vh" }}
           />
-          <br />
-          <div className="daoButton">
-            <img src="/votingIcon.svg" alt="" />{" "}
-            <span>
-              <b>DAO Voting</b> – Coming Soon
-            </span>
-          </div> */}
         </div>
         <div className="bg-white rounded-lg my-8 md:my-[-18px] md:rounded-none">
           <div className="flex justify-end p-8">
             <Menu />
           </div>
           <div className="flex flex-col gap-10 items-center article">
-            <h2>Cecil AI</h2>
+            <h2>Cecil AI Agent</h2>
             <p>
               Imagine a world where humanitarian aid reaches those who need it
               most, not hampered by red tape or human error, but guided by
@@ -80,12 +72,11 @@ export const LionPage = () => {
               of resources dedicated to alleviating suffering and building a
               better future.
             </p>
-            {/* <img
-              className="mt-8"
-              src="/projects/img-cecil-the-lion.png"
+            <img
+              className="mt-8 max-w-[256px]"
+              src="/projects/logo-cecil-ai.png"
               alt=""
             />
-            <h3>The story of Cecil</h3> */}
             <p>
               Cecil learns. It absorbs vast quantities of data – from real-time
               crisis reports and socioeconomic indicators to the on-the-ground
