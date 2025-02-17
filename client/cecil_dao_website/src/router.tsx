@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "protect-african-lions",
+        path: "protecting-african-lions",
         children: [
           {
             index: true,

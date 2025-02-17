@@ -57,6 +57,8 @@ const PlanetModel = () => {
   const btnJusticeEnfance = useRef<HTMLDivElement>(null);
   const btnMightyUnderDogs = useRef<HTMLDivElement>(null);
   const btnAkashingas = useRef<HTMLDivElement>(null);
+  const btnPAL = useRef<HTMLDivElement>(null);
+  const btnMalaika = useRef<HTMLDivElement>(null);
   const btnKingsChildrensHome = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -124,6 +126,8 @@ const PlanetModel = () => {
     const env = new HDRCubeTexture("globe-env.hdr", scene, 128);
     const engine = scene.getEngine();
     const canvas = document.getElementById("globe-canvas") as HTMLElement;
+    if (loader.current === null) return null;
+    loader.current.style.visibility = "visible";
 
     SceneLoader.Append(
       "",
@@ -136,6 +140,8 @@ const PlanetModel = () => {
         if (btnMightyUnderDogs.current === null) return null;
         if (btnAkashingas.current === null) return null;
         if (btnKingsChildrensHome.current === null) return null;
+        if (btnPAL.current === null) return null;
+        if (btnMalaika.current === null) return null;
         if (loader.current === null) return null;
 
         const camera = scene.activeCamera;
@@ -150,6 +156,8 @@ const PlanetModel = () => {
         btnMightyUnderDogs.current.style.visibility = "visible";
         btnAkashingas.current.style.visibility = "visible";
         btnKingsChildrensHome.current.style.visibility = "visible";
+        btnPAL.current.style.visibility = "visible";
+        btnMalaika.current.style.visibility = "visible";
         loader.current.style.visibility = "hidden";
 
         scene.environmentTexture = env;
@@ -164,6 +172,7 @@ const PlanetModel = () => {
         let horse: AbstractMesh | null = null;
         let akashingas: AbstractMesh | null = null;
         let southAfrica: AbstractMesh | null = null;
+        let newyork: AbstractMesh | null = null;
 
         meshes.meshes.forEach((item) => {
           // console.log(item.name);
@@ -179,6 +188,9 @@ const PlanetModel = () => {
             akashingas = item as AbstractMesh;
           if (item.name === "Object010.003_primitive0")
             southAfrica = item as AbstractMesh;
+          if (item.name === "tree-baobab_orange.003_primitive0") {
+            newyork = item as AbstractMesh;
+          }
         });
 
         setInterval(() => {
@@ -210,6 +222,18 @@ const PlanetModel = () => {
             beta: 0.34,
           });
 
+        btnPAL.current.onclick = () =>
+          handleOnClickBtnSpot(camera as ArcRotateCamera, {
+            alpha: 0.29,
+            beta: 0.34,
+          });
+
+        btnMalaika.current.onclick = () =>
+          handleOnClickBtnSpot(camera as ArcRotateCamera, {
+            alpha: 0.78,
+            beta: -1.11,
+          });
+
         btnKingsChildrensHome.current.onclick = () =>
           handleOnClickBtnSpot(camera as ArcRotateCamera, {
             alpha: 0.39,
@@ -217,19 +241,14 @@ const PlanetModel = () => {
           });
 
         scene.registerBeforeRender(() => {
-          // console.log((camera as ArcRotateCamera).position;
+          // console.log((camera as ArcRotateCamera).position);
           // console.log(camera.alpha, camera.beta);
 
           if (lion === null) return null;
           if (horse === null) return null;
           if (akashingas === null) return null;
           if (southAfrica === null) return null;
-
-          if (btnCecilTheLion.current === null) return null;
-          if (btnJusticeEnfance.current === null) return null;
-          if (btnMightyUnderDogs.current === null) return null;
-          if (btnAkashingas.current === null) return null;
-          if (btnKingsChildrensHome.current === null) return null;
+          if (newyork === null) return null;
 
           const scale = window.devicePixelRatio;
           const initscale =
@@ -285,6 +304,30 @@ const PlanetModel = () => {
               ),
             ],
             [
+              btnPAL,
+              Vector3.Project(
+                new Vector3(0, -6, 3),
+                akashingas.getWorldMatrix(),
+                scene.getTransformMatrix(),
+                camera.viewport.toGlobal(
+                  engine.getRenderWidth(true),
+                  engine.getRenderHeight(true)
+                )
+              ),
+            ],
+            [
+              btnMalaika,
+              Vector3.Project(
+                new Vector3(1, -2, 0),
+                newyork.getWorldMatrix(),
+                scene.getTransformMatrix(),
+                camera.viewport.toGlobal(
+                  engine.getRenderWidth(true),
+                  engine.getRenderHeight(true)
+                )
+              ),
+            ],
+            [
               btnKingsChildrensHome,
               Vector3.Project(
                 new Vector3(0, 0, 0),
@@ -323,7 +366,7 @@ const PlanetModel = () => {
               adaptToDeviceRatio={true}
               antialias
               onSceneReady={onSceneReady}
-              className="canvas lg:max-h-[1000px]"
+              className="canvas max-h-[500px] sm:max-h-[1000px]"
             />
             <div className="btn" ref={btnCecilTheLion}>
               <div className="btnDot">
@@ -362,6 +405,26 @@ const PlanetModel = () => {
               <div className="btnText">
                 <Link to="/akashingas" className="text">
                   Akashingas
+                </Link>
+              </div>
+            </div>
+            <div className="btn" ref={btnPAL}>
+              <div className="btnDot">
+                <div className="spot" />
+              </div>
+              <div className="btnText">
+                <Link to="/protecting-african-lions" className="text">
+                  P.A.L
+                </Link>
+              </div>
+            </div>
+            <div className="btn" ref={btnMalaika}>
+              <div className="btnDot">
+                <div className="spot" />
+              </div>
+              <div className="btnText">
+                <Link to="/malaika" className="text">
+                  Malaika
                 </Link>
               </div>
             </div>

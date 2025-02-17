@@ -1,6 +1,7 @@
 .layoutWrap {
   background: linear-gradient(110deg, #EDF6EC -1.08%, #CBEEC6 44.16%, #C6E9EE 78.17%);
   padding: 20px;
+  background-repeat: no-repeat;
 }
 
 .layoutInnerWrap {
@@ -8,4 +9,5 @@
   border-radius: 16px;
   padding: 20px;
   background: linear-gradient(64.18deg, #EDF6EC 21.83%, #CBEEC6 67.07%, #C6E9EE 101.08%);
+  background-repeat: no-repeat;
 }

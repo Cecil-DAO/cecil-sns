@@ -57,20 +57,13 @@ export const LionPage = () => {
             alt=""
             style={{ margin: "40px auto", maxHeight: "60vh" }}
           /> */}
-          {/* <br />
-          <div className="daoButton">
-            <img src="/votingIcon.svg" alt="" />{" "}
-            <span>
-              <b>DAO Voting</b> – Coming Soon
-            </span>
-          </div> */}
         </div>
         <div className="bg-white rounded-lg my-8 md:my-[-18px] md:rounded-none">
           <div className="flex justify-end p-8">
             <Menu />
           </div>
           <div className="flex flex-col gap-10 items-center article">
-            <h2>Protect African Lions</h2>
+            <h2>Protecting African Lions</h2>
             <p>
               P.A.L is a non- profit organization whose mission is to ultimately
               get protection status for the African Lion. We raise awareness

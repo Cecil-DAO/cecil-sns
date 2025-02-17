@@ -126,7 +126,7 @@ export const LionPage = () => {
             <p>
               <b>Efforts that we support through the P.A.L. association.</b>
             </p>
-            <Link to="/protect-african-lions" className="button w-full">
+            <Link to="/protecting-african-lions" className="button w-full">
               Learn more about the P.A.L. association
             </Link>
           </div>

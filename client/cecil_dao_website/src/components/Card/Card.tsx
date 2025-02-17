@@ -22,7 +22,7 @@ const Card = ({
   return (
     <div className={`card ${className}`}>
       <img src={img} alt={img} className={`mb-4 ${classNameImg}`} />
-      <div className="flex flex-col items-center gap-4 pl-10 pr-10">
+      <div className="flex flex-col items-center gap-4 px-4 md:px-10">
         <h3>{title}</h3>
         <p>{description}</p>
         <Link to={link} className="button">
