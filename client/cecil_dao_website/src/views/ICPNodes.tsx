@@ -95,7 +95,7 @@ export const ICPNodesPage = () => {
             <p>
               <b>Sustainable Funding:</b> As a node provider, we earn rewards in
               ICP tokens. The earnings of these rewards is directly allocated to
-              our charitable initiatives, providing a sustainable source of
+              develop the DAO's initiatives, providing a sustainable source of
               funding.
             </p>
             <p>

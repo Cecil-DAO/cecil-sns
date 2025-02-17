@@ -36,9 +36,9 @@ export default {
       fontFamily: {
         sans: ["Inter", "Montserrat", "system-ui", "sans-serif"],
       },
-      backgroundImage: {
-        'cover-img': "url('/src/assets/bg-cover.png')",
-      }
+      // backgroundImage: {
+      //   'savane': "url('/bg-savane.png')",
+      // }
     },
   }
 };

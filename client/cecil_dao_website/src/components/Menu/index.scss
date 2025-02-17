@@ -1,13 +1,12 @@
 .menu {
-
   .overlayMenu {
-    position: fixed;
+    position: absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width: 100%;
     z-index: 999999;
-    padding: 56px;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
+    padding: 56px 88px 16px 88px;
     background: #ffffff;
     display: none;
     opacity: 0;
@@ -18,6 +17,10 @@
       flex-flow: column;
       opacity: 1;
       justify-content: space-between;
+      
+        overflow: hidden;
+        overflow-y: hidden;
+      
     }
 
     .menuHeader {
@@ -33,7 +36,7 @@
     gap: 16px;
     color: #141414;
     font-family: Oswald;
-    font-size: 64px;
+    font-size: 48px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -52,7 +55,7 @@
     }
   }
 
-  .manuFooter {
+  .menuFooter {
     color: #57656F;
     font-family: "Helvetica Neue", Oswald;
     font-size: 13px;
@@ -64,10 +67,13 @@
 
 
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .menu {
+    .overlayMenu {
+      padding: 56px 56px 16px 56px;
+    }
     .menuItems {
-      font-size: 36px;
+      font-size: 20px;
     }
   }
 }
