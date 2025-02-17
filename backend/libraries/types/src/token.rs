@@ -25,7 +25,7 @@ impl Display for TokenSymbolParseError {
 const MAX_VALUE_SIZE: u32 = 12;
 impl TokenSymbol {
     pub fn parse(symbol: &str) -> Result<TokenSymbol, TokenSymbolParseError> {
-        const ALLOWED_TOKENS: [&str; 3] = ["ICP", "OGY", "GOLDAO"];
+        const ALLOWED_TOKENS: [&str; 3] = ["ICP", "OGY", "GLDGov"];
 
         let valid_token = ALLOWED_TOKENS.contains(&symbol);
         if valid_token {
