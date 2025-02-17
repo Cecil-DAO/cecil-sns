@@ -50,7 +50,8 @@ const handleOnClickBtnSpot = (camera: ArcRotateCamera, pos: Position) => {
 const PlanetModel = () => {
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState("");
-  const [, setProgress] = useState(0);
+  const [, setProgress] = useState<number | null>(null);
+  const xhr = new XMLHttpRequest();
 
   const loader = useRef<HTMLDivElement>(null);
   const btnCecilTheLion = useRef<HTMLDivElement>(null);
@@ -61,11 +62,9 @@ const PlanetModel = () => {
   const btnMalaika = useRef<HTMLDivElement>(null);
   const btnKingsChildrensHome = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (loading && loader.current) {
-      loader.current.style.visibility = "visible";
-    }
-  });
+  if (loading && loader.current) {
+    loader.current.style.visibility = "hidden";
+  }
 
   useEffect(() => {
     const matchCatch = () => {
@@ -79,49 +78,49 @@ const PlanetModel = () => {
               setLoading(false);
             });
           } else {
-            init();
+            const url = "globe.glb";
+            xhr.open("GET", url, true);
+            xhr.responseType = "arraybuffer";
+
+            xhr.addEventListener("progress", (event) => {
+              if (event.loaded) {
+                if (loading && loader.current) {
+                  loader.current.style.visibility = "visible";
+                }
+                const percentComplete = Math.round(
+                  (event.loaded / 18579740) * 100
+                );
+                setProgress(percentComplete);
+              }
+            });
+
+            xhr.addEventListener("load", () => {
+              if (xhr.status === 200) {
+                const arrayBuffer = xhr.response;
+                const blob = new Blob([arrayBuffer], {
+                  type: "application/octet-stream",
+                });
+
+                // console.log("blob", arrayBuffer, blob);
+                caches.open("my-cache").then((cache) => {
+                  cache.put(url, new Response(blob));
+                });
+
+                const newUrl = URL.createObjectURL(blob);
+                setUrl(newUrl);
+                setLoading(false);
+              } else {
+                console.error("Failed to load glb file:", xhr.status);
+              }
+            });
+            xhr.send();
           }
         });
       });
     };
     matchCatch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const init = () => {
-    const url = "globe.glb";
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.responseType = "arraybuffer";
-    xhr.addEventListener("progress", (event) => {
-      if (event.lengthComputable) {
-        const percentComplete = Math.round((event.loaded / event.total) * 100);
-        setProgress(percentComplete);
-      }
-    });
-
-    xhr.addEventListener("load", () => {
-      if (xhr.status === 200) {
-        const arrayBuffer = xhr.response;
-        const blob = new Blob([arrayBuffer], {
-          type: "application/octet-stream",
-        });
-
-        // console.log("blob", arrayBuffer, blob);
-        caches.open("my-cache").then((cache) => {
-          cache.put(url, new Response(blob));
-        });
-
-        const newUrl = URL.createObjectURL(blob);
-        setUrl(newUrl);
-        setLoading(false);
-      } else {
-        console.error("Failed to load glb file:", xhr.status);
-      }
-    });
-
-    xhr.send();
-  };
 
   const onSceneReady = async (scene: Scene) => {
     scene.createDefaultCamera(true, true, true);
@@ -132,8 +131,6 @@ const PlanetModel = () => {
     const env = new HDRCubeTexture("globe-env.hdr", scene, 128);
     const engine = scene.getEngine();
     const canvas = document.getElementById("globe-canvas") as HTMLElement;
-    if (loader.current === null) return null;
-    // loader.current.style.visibility = "visible";
 
     SceneLoader.Append(
       "",
@@ -368,7 +365,18 @@ const PlanetModel = () => {
           <div className="canvas max-h-[500px] sm:max-h-[1000px]">
             <div className="absolute inset-0 flex justify-center">
               <div className="loader" ref={loader} />
+              {/* {progress !== null && (
+                <div className="absolute inset-0 flex justify-center">
+                  <div className="progress-bar-model">
+                    <div
+                      className="progress-bar-fill"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </div>
+              )} */}
             </div>
+
             {!loading && (
               <>
                 <SceneComponent
@@ -376,7 +384,7 @@ const PlanetModel = () => {
                   adaptToDeviceRatio={true}
                   antialias
                   onSceneReady={onSceneReady}
-                  className="canvas"
+                  className="h-full w-full"
                 />
                 <div className="btn" ref={btnCecilTheLion}>
                   <div className="btnDot">
@@ -457,9 +465,6 @@ const PlanetModel = () => {
           </div>
         </div>
       </div>
-      {/* <div className="lightButton absolute right-4">
-        <img src="/dragIcon.svg" alt="" /> <span>Move around to explore</span>
-      </div> */}
     </section>
   );
 };
