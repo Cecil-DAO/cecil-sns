@@ -1,0 +1,79 @@
+.menu {
+  .overlayMenu {
+    position: absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width: 100%;
+    z-index: 999999;
+    padding: 56px 88px 16px 88px;
+    background: #ffffff;
+    display: none;
+    opacity: 0;
+    transition: all 1s ease-out;
+
+    &.opened {
+      display: flex;
+      flex-flow: column;
+      opacity: 1;
+      justify-content: space-between;
+      
+        overflow: hidden;
+        overflow-y: hidden;
+      
+    }
+
+    .menuHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .menuItems {
+    display: flex;
+    flex-flow: column;
+    gap: 16px;
+    color: #141414;
+    font-family: Oswald;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+
+    .active {
+      background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    a:hover {
+      background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .menuFooter {
+    color: #57656F;
+    font-family: "Helvetica Neue", Oswald;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .menu {
+    .overlayMenu {
+      padding: 56px 56px 16px 56px;
+    }
+    .menuItems {
+      font-size: 20px;
+    }
+  }
+}

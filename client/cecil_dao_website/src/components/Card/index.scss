@@ -1,0 +1,38 @@
+.card {
+  font-family: Oswald;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 10px 10px 34px 10px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  gap: 16px;
+
+  img {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+  }
+
+  h3 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    font-family: "Open Sans", sans-serif, Oswald;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+    color: #57656F;
+  }
+}

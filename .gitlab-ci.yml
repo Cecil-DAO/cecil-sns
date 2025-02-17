@@ -1,0 +1,108 @@
+default:
+  image: registry.bochslerfinance.com/runners-images/dfinity-canisters:0.22.0@sha256:11730bea35bb5b41aaec9c600a6b7ac837188d21d8d9ce97f781a7b74ad1fd01
+  interruptible: true
+  before_script:
+    - dfx --version
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - stuck_or_timeout_failure
+      - api_failure
+      - runner_unsupported
+      - unknown_failure
+
+cache:
+  - key: "dfx-$CI_COMMIT_REF_SLUG"
+    paths:
+      - .dfx
+
+stages:
+  - preparation
+  - lint
+  - test
+  - integration_testing
+  - build
+  - deploy
+
+include:
+  # Templates:
+  - local: scripts/ci-cd/.node_template.yml
+  - local: scripts/ci-cd/.rust_template.yml
+  - local: scripts/ci-cd/.dfx_templates.yml
+  # Frontend linters:
+  - local: scripts/ci-cd/.frontend_linter.yml
+    inputs:
+      src-folder: cecil_dao_website
+  # Unit tests
+  - local: scripts/ci-cd/.canister_unit_test_coverage.yml
+    inputs:
+      src-folder: sns_neuron_controller
+  # Integration tests
+  - local: scripts/ci-cd/.integration_tests.yml
+  # Canister builds
+  - local: scripts/ci-cd/.canister_builds.yml
+    inputs:
+      src-folder: sns_neuron_controller
+  # Frontend builds
+  - local: scripts/ci-cd/.frontend_builds.yml
+    inputs:
+      src-folder: cecil_dao_website
+  # Backend deployments
+  - local: scripts/ci-cd/.canister_deploys.yml
+    inputs:
+      src-folder: sns_neuron_controller
+  # Frontend deployments
+  - local: scripts/ci-cd/.frontend_deploys.yml
+    inputs:
+      src-folder: cecil_dao_website
+      sns-controlled: "false"
+
+################################################################################
+# Cache preparation
+################################################################################
+node cache:
+  stage: preparation
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "./frontend/**/*.{js,json,jsx,md,mdx,css,html,svg}"
+  extends: .node template
+  script:
+    - npm pkg get name description author license workspaces engines
+    - node --version
+    - npm --version
+
+################################################################################
+# Linters
+################################################################################
+
+# See includes above for frontends lint
+
+rust lint:
+  stage: lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "Cargo.{lock,toml}"
+        - "backend/**/*.{rs,toml,lock,md,did,wasm,gz}"
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "develop"
+      changes:
+        - "Cargo.{lock,toml}"
+        - "backend/**/*.{rs,toml,lock,md,did,wasm,gz}"
+  extends: .rust template
+  script:
+    - cargo clippy
+################################################################################
+# Unit tests
+################################################################################
+
+# See includes above
+
+################################################################################
+# Builds
+################################################################################
+
+# See includes above for canister builds
