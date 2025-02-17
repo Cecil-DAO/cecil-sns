@@ -62,6 +62,12 @@ const PlanetModel = () => {
   const btnKingsChildrensHome = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (loading && loader.current) {
+      loader.current.style.visibility = "visible";
+    }
+  });
+
+  useEffect(() => {
     const matchCatch = () => {
       caches.open("my-cache").then((cache) => {
         const request = new Request("globe.glb", { method: "GET" });
@@ -127,7 +133,7 @@ const PlanetModel = () => {
     const engine = scene.getEngine();
     const canvas = document.getElementById("globe-canvas") as HTMLElement;
     if (loader.current === null) return null;
-    loader.current.style.visibility = "visible";
+    // loader.current.style.visibility = "visible";
 
     SceneLoader.Append(
       "",
@@ -358,92 +364,102 @@ const PlanetModel = () => {
   return (
     <section className="threeDContent relative h-full text-[#000]">
       <div className="threeDPage">
-        {!loading && (
-          <div className="page">
-            <div className="loader" ref={loader} />
-            <SceneComponent
-              id="globe-canvas"
-              adaptToDeviceRatio={true}
-              antialias
-              onSceneReady={onSceneReady}
-              className="canvas max-h-[500px] sm:max-h-[1000px]"
-            />
-            <div className="btn" ref={btnCecilTheLion}>
-              <div className="btnDot">
-                <div className="spot" />
-              </div>
-              <div className="btnText">
-                <Link to="/cecil-ai" className="text">
-                  Cecil AI Agent
-                </Link>
-              </div>
+        <div className="page">
+          <div className="canvas max-h-[500px] sm:max-h-[1000px]">
+            <div className="absolute inset-0 flex justify-center">
+              <div className="loader" ref={loader} />
             </div>
-            <div className="btn" ref={btnJusticeEnfance}>
-              <div className="btnDot">
-                <div className="spot" />
-              </div>
-              <div className="btnText">
-                <Link to="/justice-pour-l-enfance" className="text">
-                  Justice Pour L'Enfance
-                </Link>
-              </div>
-            </div>
-            <div className="btn" ref={btnMightyUnderDogs}>
-              <div className="btnDot">
-                <div className="spot" />
-              </div>
-              <div className="btnText">
-                <Link to="/mighty-under-dogs" className="text">
-                  MightyUnderDogs
-                </Link>
-              </div>
-            </div>
-            <div className="btn" ref={btnAkashingas}>
-              <div className="btnDot">
-                <div className="spot" />
-              </div>
-              <div className="btnText">
-                <Link to="/akashingas" className="text">
-                  Akashingas
-                </Link>
-              </div>
-            </div>
-            <div className="btn" ref={btnPAL}>
-              <div className="btnDot">
-                <div className="spot" />
-              </div>
-              <div className="btnText">
-                <Link to="/protecting-african-lions" className="text">
-                  P.A.L
-                </Link>
-              </div>
-            </div>
-            <div className="btn" ref={btnMalaika}>
-              <div className="btnDot">
-                <div className="spot" />
-              </div>
-              <div className="btnText">
-                <Link to="/malaika" className="text">
-                  Malaika
-                </Link>
-              </div>
-            </div>
-            <div className="btn" ref={btnKingsChildrensHome}>
-              <div className="btnDot">
-                <div className="spot" />
-              </div>
-              <div className="btnText">
-                <Link to="/the-kings-childrens-home" className="text">
-                  King's Childrens Home
-                </Link>
-              </div>
-            </div>
+            {!loading && (
+              <>
+                <SceneComponent
+                  id="globe-canvas"
+                  adaptToDeviceRatio={true}
+                  antialias
+                  onSceneReady={onSceneReady}
+                  className="canvas"
+                />
+                <div className="btn" ref={btnCecilTheLion}>
+                  <div className="btnDot">
+                    <div className="spot" />
+                  </div>
+                  <div className="btnText">
+                    <Link to="/cecil-ai" className="text">
+                      Cecil AI Agent
+                    </Link>
+                  </div>
+                </div>
+                <div className="btn" ref={btnJusticeEnfance}>
+                  <div className="btnDot">
+                    <div className="spot" />
+                  </div>
+                  <div className="btnText">
+                    <Link to="/justice-pour-l-enfance" className="text">
+                      Justice Pour L'Enfance
+                    </Link>
+                  </div>
+                </div>
+                <div className="btn" ref={btnMightyUnderDogs}>
+                  <div className="btnDot">
+                    <div className="spot" />
+                  </div>
+                  <div className="btnText">
+                    <Link to="/mighty-under-dogs" className="text">
+                      MightyUnderDogs
+                    </Link>
+                  </div>
+                </div>
+                <div className="btn" ref={btnAkashingas}>
+                  <div className="btnDot">
+                    <div className="spot" />
+                  </div>
+                  <div className="btnText">
+                    <Link to="/akashingas" className="text">
+                      Akashingas
+                    </Link>
+                  </div>
+                </div>
+                <div className="btn" ref={btnPAL}>
+                  <div className="btnDot">
+                    <div className="spot" />
+                  </div>
+                  <div className="btnText">
+                    <Link to="/protecting-african-lions" className="text">
+                      P.A.L
+                    </Link>
+                  </div>
+                </div>
+                <div className="btn" ref={btnMalaika}>
+                  <div className="btnDot">
+                    <div className="spot" />
+                  </div>
+                  <div className="btnText">
+                    <Link to="/malaika" className="text">
+                      Malaika
+                    </Link>
+                  </div>
+                </div>
+                <div className="btn" ref={btnKingsChildrensHome}>
+                  <div className="btnDot">
+                    <div className="spot" />
+                  </div>
+                  <div className="btnText">
+                    <Link to="/the-kings-childrens-home" className="text">
+                      King's Childrens Home
+                    </Link>
+                  </div>
+                </div>
+                <div className="lightButton absolute right-4">
+                  <img src="/dragIcon.svg" alt="" />{" "}
+                  <span>Move around to explore</span>
+                </div>
+              </>
+            )}
           </div>
-        )}
+        </div>
       </div>
-      <div className="lightButton absolute right-4">
+      {/* <div className="lightButton absolute right-4">
         <img src="/dragIcon.svg" alt="" /> <span>Move around to explore</span>
-      </div>
+      </div> */}
     </section>
   );
 };
