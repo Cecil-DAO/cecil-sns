@@ -331,7 +331,6 @@ Distribution:
     # For the actual SNS launch, you should replace this with one or more
     # principals of your intended genesis neurons.
     #
-    # DEF
     - principal: vv54r-acuwj-wa5hz-ghytt-geecq-lt7oy-3u5we-myzpw-cylzp-uebfs-mqe
       stake: 7_500 tokens
       memo: 0
@@ -342,7 +341,6 @@ Distribution:
       memo: 1
       dissolve_delay: 3 years
       vesting_period: 0 years
-    # ORIGYN Foundation
     - principal: nouv5-jovae-aqzq2-4ixng-ik7qt-ivwzu-gd6i7-bxohu-u4zpq-gcz2i-iqe
       stake: 7_500 tokens
       memo: 0
