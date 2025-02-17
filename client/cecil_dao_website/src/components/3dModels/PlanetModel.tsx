@@ -433,7 +433,7 @@ const PlanetModel = () => {
                 <div className="spot" />
               </div>
               <div className="btnText">
-                <Link to="/akashingas" className="text">
+                <Link to="/the-kings-childrens-home" className="text">
                   King's Childrens Home
                 </Link>
               </div>
