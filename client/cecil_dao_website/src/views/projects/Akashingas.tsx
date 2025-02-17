@@ -43,12 +43,11 @@ export const LionPage = () => {
             back to homepage
           </Link>
 
-          {/* <div className="progress-container">
+          <div className="progress-container">
             <div className="progress-section" />
-            <div className="progress-section" style={{ top: "30%" }} />
-            <div className="progress-section" style={{ top: "65%" }} />
+            <div className="progress-section" style={{ top: "100%" }} />
             <div className="progress-bar" id="progressBar" />
-          </div> */}
+          </div>
 
           {/* <img
             src="/projects/img-cecil-the-lion-vector.png"
@@ -70,17 +69,35 @@ export const LionPage = () => {
           <div className="flex flex-col gap-10 items-center article">
             <h2>Akashingas</h2>
             <p>
-              This project aims to support the Akashingas ("the brave") women
-              rangers in Zimbabwe, who dedicate their lives to defending nature
-              reserves against poaching activities. These women, who often come
-              from difficult backgrounds, have become an example for local
-              communities. Their determination and many successes have made them
-              local heroes. For this project, DAO Cecil plans to set up a
-              decentralized investment fund, with all profits going to the
-              anti-poaching association, to enable them to continue their
-              actions in defense of Zimbabwe's wildlife reserves.
+              A lion will fight for life and the pack he belongs to and will go
+              to death in a loyal combat, but Cecil did not have that chance,
+              today his spirit can be find among the Akashingas ("the brave")
+              women rangers in Zimbabwe, who dedicate their lives to defending
+              nature reserves against poaching activities.
+            </p>
+            <a
+              href="https://www.akashinga.org/"
+              target="_blank"
+              rel="noreferrer"
+              className="button"
+            >
+              Visit akashinga.org
+            </a>
+            <p>
+              These women, who often come from difficult backgrounds, have
+              become an example for local communities. Their determination and
+              many successes have made them local heroes. Cecil DAO will use 50%
+              of the SNS donation to this organization, the 50% remaining will
+              go as an endowment to CECIL AI, with 10% of the annual profits
+              going to the Akashinga.org, the anti-poaching association, to
+              enable them to continue their actions in defense of Zimbabwe's
+              wildlife reserves.
             </p>
             <img className="mt-8" src="/projects/img-akashingas.png" alt="" />
+            <p>
+              The remaining amount will be distributed to other causes CECIL DAO
+              wants to support.{" "}
+            </p>
             {/* <h3>The story of Cecil</h3>
             <p>
               He was one of the most magnificent creatures in the world:

@@ -95,8 +95,8 @@ NnsProposal:
 
     ## Learn more
     * [Cecil DAO website](https://cecildao.org/)
-    * [Cecil DAO whitepaper](https://cecildao.org/) # TODO ******************************************************
-    * [Cecil DAO on X](https://x.com/) # TODO ******************************************************
+    * [Cecil DAO whitepaper](https://cecildao.org/)
+    * [Cecil DAO on X](https://x.com/dao_cecil)
     * [Cecil DAO on Telegram](https://t.me) # TODO ******************************************************
 
 
@@ -122,7 +122,7 @@ dapp_canisters:
   # IDs of the canisters comprising your to-be-decentralized dapp.
   #
   # For testing, propose_sns.sh will fill this in automatically.
-  - ebrqv-vaaaa-aaaal-qb6zq-cai # TODO ******************************************************
+  - 3x5sf-taaaa-aaaah-aq33q-cai
 
 # Configuration of SNS tokens in the SNS Ledger canister deployed as part
 # of the SNS.
@@ -327,7 +327,7 @@ Distribution:
   # right after the SNS creation and thus includes the pre-initialization mode
   # period.
   #
-  Neurons: # TODO ******************************************************
+  Neurons:
     # For the actual SNS launch, you should replace this with one or more
     # principals of your intended genesis neurons.
     #
