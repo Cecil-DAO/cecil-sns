@@ -65,8 +65,8 @@ export const LionPage = () => {
           <div className="flex flex-col gap-10 items-center article">
             <h2>Justice pour L'enfance</h2>
             <p>
-              Under the leadership of lawyer Geneviève Sroussi and activist
-              journalist Karl0, Justice for Children was born. This non-profit
+              Under the leadership of activist journalist Karl Zero and a board
+              of 40 lawyers, Justice for Children was born. This non-profit
               association brings together a collective of lawyers specializing
               in the defense of children, present throughout France.
             </p>

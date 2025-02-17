@@ -56,7 +56,7 @@ export const LandingPage = () => {
         </div>
 
         <div className="">
-          <div className="mt-8 lg:mt-32 mb-16 text-6xl text-center font-bold font-oswald tracking-wider">
+          <div className="mt-8 lg:mt-32 mb-16 text-4xl md:text-6xl text-center font-bold font-oswald tracking-wider">
             Supported Projects
           </div>
         </div>
@@ -88,7 +88,7 @@ export const LandingPage = () => {
             className="mt-8 md:mt-40"
             img="/projects/logo-justice-pour-enfance.svg"
             title="Justice pour l'enfance"
-            description="Under the leadership of lawyer Geneviève Sroussi and activist journalist Karl0, Justice for Children was born. This non-profit association brings together a collective of lawyers specializing in the defense of children, present throughout France."
+            description="Under the leadership of activist journalist Karl Zero and a board of 40 lawyers, Justice for Children was born. This non-profit association brings together a collective of lawyers specializing in the defense of children, present throughout France."
             link="/justice-pour-l-enfance"
           />
           <Card
