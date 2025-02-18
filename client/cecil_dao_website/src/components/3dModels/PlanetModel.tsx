@@ -362,7 +362,7 @@ const PlanetModel = () => {
     <section className="threeDContent relative h-full text-[#000]">
       <div className="threeDPage">
         <div className="page">
-          <div className="canvas max-h-[500px] sm:max-h-[1000px]">
+          <div className="canvas max-h-[600px] sm:max-h-[1200px]">
             <div className="absolute inset-0 flex justify-center">
               <div className="loader" ref={loader} />
               {/* {progress !== null && (
@@ -384,7 +384,7 @@ const PlanetModel = () => {
                   adaptToDeviceRatio={true}
                   antialias
                   onSceneReady={onSceneReady}
-                  className="h-full w-full"
+                  className="relative h-full w-full outline-none"
                 />
                 <div className="btn" ref={btnCecilTheLion}>
                   <div className="btnDot">
