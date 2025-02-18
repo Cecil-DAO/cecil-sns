@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Versions
 
+### [1.0.2] - 2025-02-18
+
+#### Changed
+
+- Content for Justice pour l'enfance project
+
 ### [1.0.1] - 2025-02-17
 
 #### Fix
