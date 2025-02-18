@@ -18,7 +18,6 @@
   .canvas {
     width: 100%;
     height: calc(100vh - 112px);
-    outline: none;
     z-index: 1;
     position: relative;
   }
@@ -235,3 +234,26 @@
   animation: l3 1s infinite linear;
 }
 @keyframes l3 {to{transform: rotate(1turn)}}
+
+.progress-bar-model {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 16px;
+  border-radius: 50px;
+  background-color: #fff;
+
+  @media screen and (max-width: 768px) {
+    width: 200px;
+  }
+
+  .progress-bar-fill {
+    position: absolute;
+    border-radius: 50px;
+    background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+    height: 16px;
+    border-radius: 50px;
+  }
+}
