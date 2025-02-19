@@ -28,7 +28,7 @@ export const LionPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div style={{ textAlign: "center" }}>
           <img
-            src="/logo-cecil-dao.png"
+            src="/projects/logo-cecil-ai.png"
             alt="Logo Cecil DAO"
             className="h-[48px]"
           />
@@ -70,8 +70,8 @@ export const LionPage = () => {
           <div className="flex flex-col gap-10 items-center article">
             <h2>Cecil the lion DAO</h2>
             <p>
-              The Cecil the Lion DAO is a decentralized autonomous organization
-              dedicated to supporting various humanitarian projects. Inspired by
+              Cecil the Lion DAO is a decentralized autonomous organization
+              dedicated to support various humanitarian projects. Inspired by
               the tragic story of Cecil the lion, a beloved and well-known lion
               who was killed in Africa, this DAO aims to honor his memory by
               making a positive impact on the world.
@@ -124,10 +124,10 @@ export const LionPage = () => {
               more than ever.
             </p>
             <p>
-              <b>Efforts that we support through the P.A.L. association.</b>
+              <b>The DAO supports the Akashinga!</b>
             </p>
-            <Link to="/protecting-african-lions" className="button w-full">
-              Learn more about the P.A.L. association
+            <Link to="/akashingas" className="button w-full">
+              Learn more about the Akashinga
             </Link>
           </div>
         </div>

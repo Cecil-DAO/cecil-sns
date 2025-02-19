@@ -28,7 +28,7 @@ const SNS = () => {
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div style={{ textAlign: "center" }}>
           <img
-            src="/logo-cecil-dao.png"
+            src="/projects/logo-cecil-ai.png"
             alt="Logo Cecil DAO"
             className="h-[48px]"
           />
@@ -44,8 +44,7 @@ const SNS = () => {
           </Link>
           <div className="progress-container">
             <div className="progress-section" />
-            <div className="progress-section" style={{ top: "10%" }} />
-            <div className="progress-section" style={{ top: "70%" }} />
+            <div className="progress-section" style={{ top: "100%" }} />
             <div className="progress-bar" id="progressBar" />
           </div>
 
@@ -63,13 +62,36 @@ const SNS = () => {
           <div className="flex flex-col gap-10 items-center article">
             <h2>SNS</h2>
             <p>
-              This decentralized autonomous organization (DAO) is dedicated to
-              using blockchain technology to drive positive change. Our
-              platform, built on the Internet Computer Protocol (ICP) and
-              governed by the decentralized governance of a Service Nervous
-              System (SNS), empowers a global community to collaborate, donate,
-              and track the impact of humanitarian aid efforts. Together, we can
-              build a more compassionate and equitable world.
+              The Service Nervous System (SNS) is a framework on the Internet
+              Computer Protocol (ICP) blockchain that streamlines the creation
+              and governance of Decentralized Autonomous Organizations (DAOs).
+              It enables a smooth transition of control from initial developers
+              to a community-driven model, where token holders collectively
+              manage the project's future. This is achieved through a structured
+              system of proposals and voting, ensuring that decisions are made
+              transparently and democratically.
+            </p>
+            <p>
+              This framework is particularly well-suited for running
+              humanitarian DAOs. The ability to establish a transparent and
+              auditable governance structure is crucial for organizations
+              focused on social impact. By leveraging the SNS, humanitarian DAOs
+              can ensure that funds and resources are allocated according to the
+              community's consensus, minimizing the risk of corruption and
+              maximizing accountability. The immutability of the blockchain
+              provides a secure and reliable record of all transactions and
+              decisions, building trust among donors and beneficiaries.
+            </p>
+            <p>
+              Furthermore, the decentralized nature of the SNS fosters
+              resilience and inclusivity, vital for humanitarian efforts. It
+              eliminates single points of failure and empowers communities to
+              participate in decision-making, ensuring that aid reaches those
+              who need it most effectively. The framework's ability to
+              facilitate decentralized fundraising and resource distribution
+              makes it an ideal tool for organizations seeking to address global
+              challenges in a transparent, non-corruptible, and resilient
+              manner.
             </p>
             <a
               className="button"
@@ -79,49 +101,6 @@ const SNS = () => {
             >
               Participate in the SNS sale and join the movement!
             </a>
-            <h2>Why a DAO?</h2>
-            <h3>No boss, no central authority.</h3>
-            <p>
-              To understand how a DAO works, it's important to understand the
-              philosophy of a decentralized organization. You'll see why we've
-              chosen to support humanitarian projects through the creation of
-              DAOs.
-            </p>
-            <p>D.A.O. = Decentralized Autonomous Organization</p>
-            <h4>Decentralization</h4>
-            <p>
-              Decentralized in a DAO, there is no central point of control (no
-              higher banking authority, no government) powers are distributed
-              among all members (voters) and decisions are made on the basis of
-              a consensus approach.
-            </p>
-            <h4>Autonomous</h4>
-            <p>
-              DAO governance is encoded in a computer program that automatically
-              performs coordination and governance functions.
-            </p>
-            <h4>Organization</h4>
-            <p>
-              DAOs are a new way of coordinating people. They represent an
-              alternative to traditional forms of organization such as
-              companies, foundations or associations governed by management.
-              With a DAO, every investor has the power to vote, and thus the
-              power of shared governance.
-            </p>
-            <h3>How does it work?</h3>
-            <p>
-              The main aim of a DAO is to create a transparent, secure and open
-              system that enables participants to collectively manage and govern
-              organizations without depending on a central authority or
-              intermediaries. DAOs aim to eliminate the need for traditional
-              hierarchical structures and distribute power and decision-making
-              among participants. Through the Cecil The Lion DAO, we invite you
-              to make a donation to support the P.A.L. association, which is
-              working on the ground to save South Africa's lions, and then to
-              invite the whole community to vote for the animal and
-              environmental protection projects that matter most to YOU.
-            </p>
-            <p>The more of us there are, the greater our power to save!</p>
           </div>
         </div>
       </div>

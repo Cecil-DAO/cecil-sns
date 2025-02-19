@@ -280,3 +280,71 @@ footer {
   width: 100%;
   height: 100%;
 }
+
+
+// INFINITE CAROUSSEL
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.caroussel {
+  overflow: hidden;
+  padding: 32px 0;
+  background: linear-gradient(71.42deg, #23add33d 4.1%, #74b65541 101.68%);
+  white-space: nowrap;
+  position: relative;
+}
+
+.caroussel:before,
+.caroussel:after {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  content: "";
+  z-index: 2;
+
+  @media screen and (max-width: 768px) {
+    width: 100px;
+  }
+}
+
+.caroussel:before {
+  left: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), #edf6ec);
+}
+
+.caroussel:after {
+  right: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #e0f3de);
+}
+
+.caroussel:hover .caroussel-slide {
+  animation-play-state: paused;
+}
+
+.caroussel-slide {
+  display: inline-block;
+  animation: 15s slide infinite linear;
+}
+
+.caroussel-slide div {
+  display: inline-block;
+  font-family: "Oswald", sans-serif;
+  font-weight: bold;
+  letter-spacing: 5px;
+  color: white;
+  font-size: 42px;
+  margin: 0 30px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 24px;
+    margin: 0 10px;
+  }
+}
