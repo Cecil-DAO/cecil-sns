@@ -17,6 +17,7 @@ import MightyUnderDogs from "@views/projects/MightyUnderDogs";
 import TheKingsChildrensHome from "@views/projects/TheKingsChildrensHome";
 
 import SNS from "@views/SNS";
+import WhyDAO from "@views/WhyDAO";
 import ICPNodes from "@views/ICPNodes";
 import Neuron from "@views/Neuron";
 
@@ -107,6 +108,15 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <SNS />,
+          },
+        ],
+      },
+      {
+        path: "why-dao",
+        children: [
+          {
+            index: true,
+            element: <WhyDAO />,
           },
         ],
       },

@@ -28,7 +28,7 @@ export const LionPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div style={{ textAlign: "center" }}>
           <img
-            src="/logo-cecil-dao.png"
+            src="/projects/logo-cecil-ai.png"
             alt="Logo Cecil DAO"
             className="h-[48px]"
           />
