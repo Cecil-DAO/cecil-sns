@@ -28,7 +28,7 @@ export const LandingPage = () => {
             alt="Logo Cecil DAO"
             className="h-[48px]"
           />
-          <div className="hidden md:block font-bold text-content/60 text-sm tracking-wider ml-[243px]">
+          <div className="hidden md:block font-bold text-content/60 text-sm tracking-wider ml-[120px]">
             Cecil The Lion DAO
           </div>
           <div className="flex items-center gap-6">
@@ -38,7 +38,7 @@ export const LandingPage = () => {
                 target="_blank"
                 className="button"
               >
-                Read history and whitepaper
+                About Us
               </a>
             </div>
             <Menu />

@@ -30,30 +30,25 @@
     }
   }
 
-  .menuItems {
+  .menu-item {
     display: flex;
     flex-flow: column;
-    gap: 16px;
+    gap: 8px;
     color: #141414;
     font-family: Oswald;
-    font-size: 48px;
+    font-size: 42px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     text-align: center;
 
-    .active {
-      background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
     a:hover {
-      background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+      background: linear-gradient(71.42deg, #23add3ab 4.1%, #74b655b3 101.68%);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-  }
+}
 
   .menuFooter {
     color: #57656F;
@@ -65,15 +60,34 @@
   }
 }
 
+.menu-item-title {
+  // color: #141414;
+  font-family: Oswald;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+  background: linear-gradient(71.42deg, #23AED3 4.1%, #73B655 101.68%);
+  -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+  @media screen and (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
 
 
 @media screen and (max-width: 768px) {
   .menu {
     .overlayMenu {
-      padding: 56px 56px 16px 56px;
+      padding: 16px;
     }
-    .menuItems {
-      font-size: 20px;
+    .menu-item {
+      font-size: 24px;
+      gap: 4px;
     }
   }
 }
