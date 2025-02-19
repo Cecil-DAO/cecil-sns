@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Versions
 
+### [1.0.4] - 2025-02-19
+
+#### Added
+
+- Why DAO page
+
+#### Changed
+
+- Menu UI
+
+#### Fix
+
+- Minor UI issues
+
 ### [1.0.3] - 2025-02-18
 
 #### Changed
