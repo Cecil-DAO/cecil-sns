@@ -77,7 +77,7 @@ NnsProposal:
 
   # The HTTPS address of additional content required to evaluate the NNS
   # proposal.
-  url: "https://forum.dfinity.org/t/ADD_LINK" # TODO ******************************************************
+  url: "https://forum.dfinity.org/t/introducing-cecil-the-lion-dao-sns/41378"
 
   # The description of the proposal. Must be a string of 10 to 2,000 bytes.
   summary: |
