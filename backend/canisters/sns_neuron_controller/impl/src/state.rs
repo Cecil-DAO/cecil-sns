@@ -1,7 +1,7 @@
 use crate::types::neuron_manager::NeuronManager;
 use crate::types::neuron_manager::Neurons;
 use crate::types::neuron_metrics::NeuronWithMetric;
-use crate::types::{OgyManager, WtnManager};
+use crate::types::OgyManager;
 use candid::{CandidType, Principal};
 use canister_state_macros::canister_state;
 use serde::{Deserialize, Serialize};
@@ -100,7 +100,6 @@ impl Data {
 pub struct NeuronManagers {
     pub now: TimestampMillis,
     pub ogy: OgyManager,
-    pub wtn: WtnManager,
 }
 
 impl NeuronManagers {
@@ -118,14 +117,12 @@ impl NeuronManagers {
                 ogy_sns_rewards_canister_id,
                 neurons: Neurons::default(),
             },
-            wtn: WtnManager::default(),
         }
     }
 
     pub fn get_neurons(&self) -> NeuronList {
         NeuronList {
             ogy_neurons: self.ogy.neurons.all_neurons.clone(),
-            wtn_neurons: self.wtn.neurons.all_neurons.clone(),
         }
     }
 }
@@ -133,5 +130,4 @@ impl NeuronManagers {
 #[derive(CandidType, Serialize)]
 pub struct NeuronList {
     ogy_neurons: Vec<Neuron>,
-    wtn_neurons: Vec<Neuron>,
 }
