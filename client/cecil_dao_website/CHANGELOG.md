@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Versions
 
+### [1.0.5] - 2025-02-28
+
+#### Added
+
+- Improve SEO
+
 ### [1.0.4] - 2025-02-19
 
 #### Added
