@@ -52,7 +52,7 @@ name: Cecil The Lion DAO
 # Description of the SNS project.
 # Must be a string of max length = 2,000.
 description: >
-  The Cecil The Lion DAO project is the first-ever humanitarian DAO, an initiative dedicated to supporting vital humanitarian projects across the globe.
+  The Cecil The Lion DAO project is the first-ever AI-driven humanitarian DAO, an initiative dedicated to supporting vital humanitarian projects across the globe.
   This unique organization was born from a place of deep compassion, inspired by the tragic and senseless killing of Cecil the lion, a symbol of majestic beauty and a stark reminder of the challenges facing our world.
   The DAO stands as a testament to his legacy, channeling the grief and outrage into positive action.
   Operating entirely on a non-profit basis, the DAO is committed to transparency and accountability, ensuring that every single contribution, no matter the size, directly and effectively benefits the projects it supports.
@@ -377,7 +377,7 @@ Distribution:
     # The initial SNS token balance of the SNS Governance canister is known
     # as the treasury. This is initialized in a special sub-account, as the
     # main account of Governance is the minting account of the SNS Ledger.
-    governance: 940_000 tokens # 94 %
+    treasury: 940_000 tokens # 94 %
 
     # The initial SNS token balance of the Swap canister is what will be
     # available for the decentralization swap. These tokens will be swapped
