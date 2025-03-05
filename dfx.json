@@ -1,20 +1,15 @@
 {
-  "dfx": "0.22.0",
+  "dfx": "0.25.0",
   "__0": "Cecil DAO monorepo",
   "canisters": {
     "cecil_dao_website": {
-      "build": [
-        "npm run postinstall",
-        "npm run build:cecil_dao_website"
-      ],
+      "build": ["npm run postinstall", "npm run build:cecil_dao_website"],
       "declarations": {
         "bindings": [],
         "env_override": null,
         "output": null
       },
-      "source": [
-        "client/cecil_dao_website/dist"
-      ],
+      "source": ["client/cecil_dao_website/dist"],
       "type": "assets"
     },
     "ogy_ledger": {
@@ -32,10 +27,7 @@
       "build": "",
       "candid": "backend/external_canisters/sns_governance/api/can.did",
       "declarations": {
-        "bindings": [
-          "js",
-          "did"
-        ],
+        "bindings": ["js", "did"],
         "env_override": null,
         "output": "backend/external_canisters/sns_governance/api/declarations"
       },
@@ -46,10 +38,7 @@
       "build": "",
       "candid": "backend/external_canisters/sns_index/api/can.did",
       "declarations": {
-        "bindings": [
-          "js",
-          "did"
-        ],
+        "bindings": ["js", "did"],
         "env_override": null,
         "output": "backend/external_canisters/sns_index/api/declarations"
       },
@@ -60,10 +49,7 @@
       "build": "",
       "candid": "backend/external_canisters/sns_ledger/api/can.did",
       "declarations": {
-        "bindings": [
-          "js",
-          "did"
-        ],
+        "bindings": ["js", "did"],
         "env_override": null,
         "output": "backend/external_canisters/sns_ledger/api/declarations"
       },
@@ -71,15 +57,10 @@
       "wasm": ""
     },
     "sns_neuron_controller": {
-      "build": [
-        "./scripts/build_canister.sh sns_neuron_controller"
-      ],
+      "build": ["./scripts/build_canister.sh sns_neuron_controller"],
       "candid": "backend/canisters/sns_neuron_controller/api/can.did",
       "declarations": {
-        "bindings": [
-          "js",
-          "did"
-        ],
+        "bindings": ["js", "did"],
         "env_override": null,
         "output": "backend/canisters/sns_neuron_controller/api/declarations"
       },
@@ -90,10 +71,7 @@
       "build": "",
       "candid": "backend/external_canisters/sns_root/api/can.did",
       "declarations": {
-        "bindings": [
-          "js",
-          "did"
-        ],
+        "bindings": ["js", "did"],
         "env_override": null,
         "output": "backend/external_canisters/sns_root/api/declarations"
       },
@@ -104,10 +82,7 @@
       "build": "",
       "candid": "backend/external_canisters/sns_swap/api/can.did",
       "declarations": {
-        "bindings": [
-          "js",
-          "did"
-        ],
+        "bindings": ["js", "did"],
         "env_override": null,
         "output": "backend/external_canisters/sns_swap/api/declarations"
       },
@@ -117,15 +92,11 @@
   },
   "networks": {
     "staging": {
-      "providers": [
-        "https://icp0.io"
-      ],
+      "providers": ["https://icp0.io"],
       "type": "persistent"
     },
     "preprod": {
-      "providers": [
-        "https://icp0.io"
-      ],
+      "providers": ["https://icp0.io"],
       "type": "persistent"
     }
   }
