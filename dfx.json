@@ -1,5 +1,5 @@
 {
-  "dfx": "0.25.0",
+  "dfx": "0.22.0",
   "__0": "Cecil DAO monorepo",
   "canisters": {
     "cecil_dao_website": {
