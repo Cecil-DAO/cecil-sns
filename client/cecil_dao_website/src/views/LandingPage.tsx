@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faXTwitter, faTelegram } from "@fortawesome/free-brands-svg-icons";
 
 import "../index.scss";
 
@@ -55,9 +55,7 @@ export const LandingPage = () => {
             <br />
             Lion DAO
           </div>
-          <div>
-            <PlanetModel />
-          </div>
+          <PlanetModel />
         </section>
       </div>
       <section className="itemsSection Section">
@@ -302,7 +300,15 @@ export const LandingPage = () => {
             rel="noopener noreferrer"
             className="flex items-center"
           >
-            <FontAwesomeIcon icon={faXTwitter} color="#656565" size="3x" />
+            <FontAwesomeIcon icon={faXTwitter} color="#004F39" size="3x" />
+          </a>
+          <a
+            href="https://t.me/cecildao"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center"
+          >
+            <FontAwesomeIcon icon={faTelegram} color="#004F39" size="3x" />
           </a>
         </div>
       </footer>
