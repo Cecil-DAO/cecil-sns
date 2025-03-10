@@ -4,13 +4,16 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 const Layout = () => {
   return (
     <>
-      <div className="flex items-center justify-center sticky top-0 py-4 bg-slate-900 z-50 text-white gap-4 font-semibold">
-        <div>Every single ICP counts! Join the cause with us!</div>
+      <div className="px-4 flex flex-col md:flex-row items-center justify-center text-center sticky top-0 py-4 bg-[#004F39] z-50  gap-4 font-semibold">
+        <div className="text-white flex flex-col md:flex-row items-center gap-1">
+          <div>Every single ICP counts!</div>{" "}
+          <div>🦁 Join the cause with us!</div>
+        </div>
         <a
           href="https://nns.ic0.app/project/?project=ju4gz-6iaaa-aaaaq-aaeva-cai"
           target="_blank"
           rel="noreferrer"
-          className="px-6 py-2 bg-white text-black rounded-full"
+          className="px-6 py-2 bg-white text-[#004F39] rounded-full"
         >
           Contribute now!
         </a>

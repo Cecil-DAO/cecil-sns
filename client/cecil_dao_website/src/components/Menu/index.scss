@@ -1,9 +1,9 @@
 .menu {
   .overlayMenu {
     position: absolute;
-    top:0;
+    top:72px;
     left:0;
-    height:100%;
+    height:calc(100% - 72px);
     width: 100%;
     z-index: 999999;
     padding: 56px 88px 16px 88px;
@@ -11,6 +11,11 @@
     display: none;
     opacity: 0;
     transition: all 1s ease-out;
+
+    @media screen and (max-width: 768px) {
+      top: 140px;
+      height:calc(100% - 140px);
+    }
 
     &.opened {
       display: flex;
