@@ -2,7 +2,7 @@ import { useState, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faXTwitter, faTelegram } from "@fortawesome/free-brands-svg-icons";
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
 
 import "./index.scss";
@@ -135,50 +135,10 @@ const Menu = () => {
               </AccordionItem>
             </Accordion>
           </div>
-
-          {/* <div className="menuItems">
-            <div className="flex justify-center">
-              <div className="bg-[#004F39] px-4 py-1 lg:py-2 rounded-full">
-                <div className="text-white text-sm font-semibold">
-                  SNS ACTIONS
-                </div>
-              </div>
-            </div>
-            <NavLink to="/cecil-ai">Cecil AI Agent</NavLink>
-            <NavLink to="/akashingas">Akashingas</NavLink>
-
-            <div className="flex justify-center mt-4 lg:mt-12">
-              <div className="bg-[#004F39] px-4 py-1 lg:py-2 rounded-full">
-                <div className="text-white text-sm font-semibold">
-                  PROTECTING OUR ANIMALS
-                </div>
-              </div>
-            </div>
-            <NavLink to="/akashingas">Akashingas</NavLink>
-            <NavLink to="/protecting-african-lions">
-              Protecting African Lions
-            </NavLink>
-
-            <div className="flex justify-center mt-4 lg:mt-12">
-              <div className="bg-[#004F39] px-4 py-1 lg:py-2 rounded-full">
-                <div className="text-white text-sm font-semibold">
-                  PROTECTING OUR CHILDRENS
-                </div>
-              </div>
-            </div>
-            <NavLink to="/justice-pour-l-enfance">
-              Justice pour L'enfance
-            </NavLink>
-            <NavLink to="/malaika">Malaika</NavLink>
-            <NavLink to="/mighty-under-dogs">Mighty Under Dogs</NavLink>
-            <NavLink to="/the-kings-childrens-home">
-              The Kings Childrens Home
-            </NavLink>
-          </div> */}
         </div>
         <div>
-          <div className="menuFooter flex justify-center xl:justify-between items-center px-6 py-4">
-            <p className="hidden md:block text-lg">@dao_cecil</p>
+          <div className="menuFooter flex justify-between items-center px-6 py-4">
+            <p className="text-lg">@dao_cecil</p>
             <div className="flex items-center gap-6">
               <a
                 href="https://x.com/dao_cecil"
@@ -186,7 +146,15 @@ const Menu = () => {
                 rel="noopener noreferrer"
                 className="flex items-center"
               >
-                <FontAwesomeIcon icon={faXTwitter} color="#656565" size="3x" />
+                <FontAwesomeIcon icon={faXTwitter} color="#004F39" size="3x" />
+              </a>
+              <a
+                href="https://t.me/cecildao"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center"
+              >
+                <FontAwesomeIcon icon={faTelegram} color="#004F39" size="3x" />
               </a>
             </div>
           </div>
