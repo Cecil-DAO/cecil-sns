@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Versions
 
+### [1.0.6] - 2025-03-10
+
+#### Added
+
+- Join cause banner with link to donate on NNS
+
 ### [1.0.5] - 2025-02-28
 
 #### Added
