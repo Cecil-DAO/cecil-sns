@@ -9,7 +9,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev:cecil_dao_website": "npm run --workspace cecil_dao_website develop",
+    "dev:cecil_dao_website": "npm run --workspace cecil_dao_website dev",
     "build:cecil_dao_website": "npm run --workspace cecil_dao_website build",
     "lint": "npm run lint:back && npm run lint:frontends",
     "lint:back": "cargo clippy",

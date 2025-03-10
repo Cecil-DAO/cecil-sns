@@ -56,12 +56,16 @@ export const LionPage = () => {
             style={{ margin: "40px auto", maxHeight: "60vh" }}
           />
           <br />
-          <div className="daoButton">
+          <Link
+            to="https://nns.ic0.app/project/?project=ju4gz-6iaaa-aaaaq-aaeva-cai"
+            className="daoButton"
+            target="_blank"
+          >
             <img src="/votingIcon.svg" alt="" />{" "}
             <span>
-              <b>DAO Voting</b> – Coming Soon
+              <b>DAO Voting</b> – Join the launch!
             </span>
-          </div>
+          </Link>
         </div>
         <div className="bg-white rounded-lg my-8 md:my-[-18px] md:rounded-none">
           <div className="flex justify-end p-8">

@@ -95,7 +95,7 @@ const SNS = () => {
             </p>
             <a
               className="button"
-              href="https://nns.ic0.app/launchpad/"
+              href="https://nns.ic0.app/project/?project=ju4gz-6iaaa-aaaaq-aaeva-cai"
               target="_blank"
               style={{ width: "100%" }}
             >
