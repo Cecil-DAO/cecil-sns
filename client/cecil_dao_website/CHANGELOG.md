@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Versions
 
+### [1.0.9] - 2025-03-24
+
+#### Fixed
+
+- Fixed typos
+- Remove broken Youtube video link of Kings Children Home
+
 ### [1.0.8] - 2025-03-10
 
 #### Added

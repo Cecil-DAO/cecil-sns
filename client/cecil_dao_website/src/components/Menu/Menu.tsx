@@ -121,7 +121,7 @@ const Menu = () => {
                 </div>
               </AccordionItem>
 
-              <AccordionItem header="PROTECTING OUR CHILDRENS">
+              <AccordionItem header="PROTECTING OUR CHILDREN">
                 <div className="menu-item">
                   <NavLink to="/justice-pour-l-enfance">
                     Justice pour L'enfance
@@ -129,7 +129,7 @@ const Menu = () => {
                   <NavLink to="/malaika">Malaika</NavLink>
                   <NavLink to="/mighty-under-dogs">Mighty Under Dogs</NavLink>
                   <NavLink to="/the-kings-childrens-home">
-                    The Kings Childrens Home
+                    The Kings Children's Home
                   </NavLink>
                 </div>
               </AccordionItem>

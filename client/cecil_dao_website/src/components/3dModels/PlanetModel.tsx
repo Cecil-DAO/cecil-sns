@@ -452,7 +452,7 @@ const PlanetModel = () => {
                   </div>
                   <div className="btnText">
                     <Link to="/the-kings-childrens-home" className="text">
-                      King's Childrens Home
+                      King's Children's Home
                     </Link>
                   </div>
                 </div>
