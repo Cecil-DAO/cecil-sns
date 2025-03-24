@@ -81,7 +81,7 @@ export const LionPage = () => {
               src="/projects/img-kings-childrens-home.avif"
               alt=""
             />
-            <div className="mt-8 container-iframe">
+            {/* <div className="mt-8 container-iframe">
               <iframe
                 className="responsive-iframe"
                 src="https://www.youtube.com/embed/iUEHsJYQ1Nc?si=9uWi0i1oq2iYJ8Mu"
@@ -90,7 +90,7 @@ export const LionPage = () => {
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
               ></iframe>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
