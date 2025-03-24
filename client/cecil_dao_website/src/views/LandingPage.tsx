@@ -120,7 +120,7 @@ export const LandingPage = () => {
         <div className="flex justify-center my-16 lg:my-24">
           <div className="bg-[#004F39] px-6 py-2 lg:py-4 rounded-xl">
             <div className="text-white text-xl lg:text-4xl font-semibold">
-              PROTECTING OUR CHILDRENS
+              PROTECTING OUR CHILDREN
             </div>
           </div>
         </div>
@@ -143,8 +143,8 @@ export const LandingPage = () => {
           <Card
             className="self-start mt-8 md:-mt-48"
             img="/projects/img-kings-childrens-home.avif"
-            title="The Kings Childrens Home"
-            description="The Kings Childrens Home is a safe house for babies and young children that have been abandoned or abused. It is a non-profit organization based in the Eastern Cape, South Africa."
+            title="The Kings Children's Home"
+            description="The Kings Children's Home is a safe house for babies and young children that have been abandoned or abused. It is a non-profit organization based in the Eastern Cape, South Africa."
             link="/the-kings-childrens-home"
           />
           <Card

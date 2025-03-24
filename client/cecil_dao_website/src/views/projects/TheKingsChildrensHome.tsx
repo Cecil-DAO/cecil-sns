@@ -60,9 +60,9 @@ export const LionPage = () => {
             <Menu />
           </div>
           <div className="flex flex-col gap-10 items-center article">
-            <h2>The Kings Childrens Home</h2>
+            <h2>The Kings Children's Home</h2>
             <p>
-              The King Childrens Home is a safe house for babies and young
+              The King Children's Home is a safe house for babies and young
               children that have been abandoned or abused. It is a non-profit
               organization based in the Eastern Cape, South Africa. In October
               of 2008, a baby was abandoned in the bushes near the home of Tracy
