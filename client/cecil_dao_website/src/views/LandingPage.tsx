@@ -275,13 +275,13 @@ export const LandingPage = () => {
         >
           <img src="/logo-bity.svg" alt="Logo BITY" className="" />
         </a>
-        <a
+        {/* <a
           href="https://yuku.app/"
           target="_blank"
           className="h-[48px] flex items-center"
         >
           <img src="/logo-yuku.svg" alt="Logo YUKU" className="" />
-        </a>
+        </a> */}
         <a href="https://www.origyn.com/" target="_blank" className="">
           <img
             src="/brand-origyn.png"
