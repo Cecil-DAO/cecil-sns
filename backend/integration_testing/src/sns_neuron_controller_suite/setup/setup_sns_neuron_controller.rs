@@ -4,7 +4,7 @@ use candid::Principal;
 use pocket_ic::PocketIc;
 
 pub fn setup_sns_neuron_controller_canister(
-    pic: &mut PocketIc,
+    pic: &PocketIc,
     sns_neuron_controller_id: Principal,
     args: sns_neuron_controller_api_canister::Args,
     controller: Principal,

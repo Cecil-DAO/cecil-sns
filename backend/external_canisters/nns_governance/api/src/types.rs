@@ -1,5 +1,5 @@
-use candid::{ CandidType, Principal };
-use serde::{ Deserialize, Deserializer, Serialize };
+use candid::{CandidType, Principal};
+use serde::{Deserialize, Deserializer, Serialize};
 use std::collections::HashMap;
 use types::TimestampMillis;
 
@@ -33,6 +33,11 @@ pub struct Neuron {
     pub joined_community_fund_timestamp_seconds: Option<u64>,
     pub known_neuron_data: Option<KnownNeuronData>,
     pub dissolve_state: Option<neuron::DissolveState>,
+    pub voting_power_refreshed_timestamp_seconds: Option<u64>,
+    pub potential_voting_power: Option<u64>,
+    pub neuron_type: Option<i32>,
+    pub deciding_voting_power: Option<u64>,
+    pub visibility: Option<i32>,
 }
 
 impl Neuron {
@@ -181,6 +186,20 @@ pub mod manage_neuron {
         pub percentage_to_stake: Option<u32>,
     }
 
+    /// Disburse the maturity of a neuron to any ledger account. If an account
+    /// is not specified, the caller's account will be used. The caller can choose
+    /// a percentage of the current maturity to disburse to the ledger account. The
+    /// resulting amount to disburse must be greater than or equal to the
+    /// transaction fee.
+    use icrc_ledger_types::icrc1::account::Account;
+    #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
+    pub struct DisburseMaturity {
+        /// The percentage to disburse, from 1 to 100
+        pub percentage_to_disburse: u32,
+        /// The (optional) principal to which to transfer the stake.
+        pub to_account: Option<Account>,
+    }
+
     #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
     pub struct DisburseToNeuron {
         pub new_controller: Option<Principal>,
@@ -231,6 +250,9 @@ pub mod manage_neuron {
     }
 
     #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
+    pub struct RefreshVotingPower {}
+
+    #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
     pub enum Command {
         Configure(Configure),
         Disburse(Disburse),
@@ -238,11 +260,13 @@ pub mod manage_neuron {
         Follow(Follow),
         RegisterVote(RegisterVote),
         Split(Split),
+        DisburseMaturity(DisburseMaturity),
         DisburseToNeuron(DisburseToNeuron),
         ClaimOrRefresh(ClaimOrRefresh),
         MergeMaturity(MergeMaturity),
         Merge(Merge),
         StakeMaturity(StakeMaturity),
+        RefreshVotingPower(RefreshVotingPower),
     }
 }
 
@@ -260,6 +284,12 @@ pub mod manage_neuron_response {
     }
 
     #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
+    pub struct DisburseMaturityResponse {
+        /// The amount disbursed in e8s of the governance token.
+        pub amount_disbursed_e8s: u64,
+    }
+
+    #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
     pub enum Command {
         Error(GovernanceError),
         Configure(Empty),
@@ -271,6 +301,7 @@ pub mod manage_neuron_response {
         Split(Empty),
         DisburseToNeuron(Empty),
         ClaimOrRefresh(ClaimOrRefreshResponse),
+        DisburseMaturity(DisburseMaturityResponse),
         MergeMaturity(Empty),
         Merge(Empty),
         StakeMaturity(Empty),
@@ -379,7 +410,9 @@ pub struct Ballot {
 }
 
 fn ok_or_default<'de, T, D>(deserializer: D) -> Result<T, D::Error>
-    where T: Deserialize<'de> + Default, D: Deserializer<'de>
+where
+    T: Deserialize<'de> + Default,
+    D: Deserializer<'de>,
 {
     Ok(T::deserialize(deserializer).unwrap_or_default())
 }
@@ -569,7 +602,8 @@ pub mod create_service_nervous_system {
         pub maximum_direct_participation_icp: Option<Tokens>,
         pub minimum_participant_icp: Option<Tokens>,
         pub maximum_participant_icp: Option<Tokens>,
-        pub neuron_basket_construction_parameters: Option<swap_parameters::NeuronBasketConstructionParameters>,
+        pub neuron_basket_construction_parameters:
+            Option<swap_parameters::NeuronBasketConstructionParameters>,
         pub confirmation_text: Option<String>,
         pub restricted_countries: Option<Countries>,
         pub start_time: Option<GlobalTimeOfDay>,

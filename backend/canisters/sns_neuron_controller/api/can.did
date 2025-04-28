@@ -1,4 +1,5 @@
 type Account = record { owner : opt principal; subaccount : opt Subaccount };
+type Account_1 = record { owner : principal; subaccount : opt blob };
 type Action = variant {
   ManageNervousSystemParameters : NervousSystemParameters;
   AddGenericNervousSystemFunction : NervousSystemFunction;
@@ -23,9 +24,26 @@ type Args = record {
   command : Command;
   neuron_id : blob;
 };
-type Args_1 = record { amount : nat64 };
-type Args_2 = record { rewards_destination : opt principal };
-type Args_3 = variant { Upgrade : UpgradeArgs; Init : InitArgs };
+type Args_1 = record { amount : nat64; add_disolve_delay : opt nat32 };
+type Args_2 = record {
+  neuron_type : NeuronType;
+  amount : nat64;
+  add_disolve_delay : opt nat32;
+};
+type Args_3 = record { rewards_destination : opt principal };
+type Args_4 = record {
+  goldao_rewards_threshold : opt nat;
+  goldao_sns_ledger_canister_id : opt principal;
+  goldao_sns_governance_canister_id : opt principal;
+  goldao_sns_rewards_canister_id : opt principal;
+};
+type Args_5 = record {
+  ogy_rewards_threshold : opt nat;
+  ogy_sns_ledger_canister_id : opt principal;
+  ogy_sns_rewards_canister_id : opt principal;
+  ogy_sns_governance_canister_id : opt principal;
+};
+type Args_6 = variant { Upgrade : UpgradeArgs; Init : InitArgs };
 type BuildVersion = record { major : nat32; minor : nat32; patch : nat32 };
 type By = variant {
   MemoAndController : MemoAndController;
@@ -85,18 +103,30 @@ type GenericNervousSystemFunction = record {
   validator_method_name : opt text;
   target_method_name : opt text;
 };
+type GoldaoManagerConfig = record {
+  goldao_rewards_threshold : nat;
+  goldao_sns_ledger_canister_id : principal;
+  goldao_sns_governance_canister_id : principal;
+  goldao_sns_rewards_canister_id : principal;
+};
+type IcpManagerConfig = record {
+  icp_rewards_threshold : nat;
+  nns_ledger_canister_id : principal;
+  nns_governance_canister_id : principal;
+  rewards_recipients : vec RewardsRecipient;
+};
 type IncreaseDissolveDelay = record {
   additional_dissolve_delay_seconds : nat32;
 };
 type InitArgs = record {
   rewards_destination : opt principal;
   test_mode : bool;
-  ogy_sns_ledger_canister_id : principal;
-  ogy_sns_rewards_canister_id : principal;
+  icp_manager_config : IcpManagerConfig;
   authorized_principals : vec principal;
   version : BuildVersion;
+  goldao_manager_config : GoldaoManagerConfig;
+  ogy_manager_config : OgyManagerConfig;
   commit_hash : text;
-  ogy_sns_governance_canister_id : principal;
 };
 type ListNeuronsResponse = record { neurons : NeuronList };
 type ManageSnsMetadata = record {
@@ -154,13 +184,22 @@ type Neuron = record {
   neuron_fees_e8s : nat64;
 };
 type NeuronId = record { id : blob };
-type NeuronList = record { ogy_neurons : vec Neuron; wtn_neurons : vec Neuron };
+type NeuronList = record {
+  ogy_neurons : vec Neuron;
+  goldao_neurons : vec Neuron;
+};
 type NeuronPermission = record {
   "principal" : opt principal;
   permission_type : vec int32;
 };
 type NeuronPermissionList = record { permissions : vec int32 };
-type NeuronType = variant { Ogy; Wtn };
+type NeuronType = variant { OGY; GOLDAO };
+type OgyManagerConfig = record {
+  ogy_rewards_threshold : nat;
+  ogy_sns_ledger_canister_id : principal;
+  ogy_sns_rewards_canister_id : principal;
+  ogy_sns_governance_canister_id : principal;
+};
 type Operation = variant {
   ChangeAutoStakeMaturity : ChangeAutoStakeMaturity;
   StopDissolving : record {};
@@ -182,8 +221,16 @@ type RemoveNeuronPermissions = record {
   principal_id : opt principal;
 };
 type Response = variant { Success : text; InternalError : text };
-type Response_1 = variant { Success : blob; InternalError : text };
-type Response_2 = variant { Success };
+type Response_1 = variant { Success : nat64; InternalError : text };
+type Response_2 = variant { Success : blob; InternalError : text };
+type Response_3 = variant { Success };
+type Response_4 = variant { Success; InternalError : text };
+type Response_5 = variant { Success; InternalError : text };
+type RewardsRecipient = record {
+  tag : text;
+  reward_weight : nat16;
+  account : Account_1;
+};
 type SetDissolveTimestamp = record { dissolve_timestamp_seconds : nat64 };
 type Split = record { memo : nat64; amount_e8s : nat64 };
 type StakeMaturity = record { percentage_to_stake : opt nat32 };
@@ -208,9 +255,12 @@ type VotingRewardsParameters = record {
   reward_rate_transition_duration_seconds : opt nat64;
   round_duration_seconds : opt nat64;
 };
-service : (Args_3) -> {
+service : (Args_6) -> {
   list_ogy_neurons : () -> (ListNeuronsResponse) query;
   manage_sns_neuron : (Args) -> (Response);
-  stake_ogy_neuron : (Args_1) -> (Response_1);
-  update_config : (Args_2) -> (Response_2);
+  stake_nns_neuron : (Args_1) -> (Response_1);
+  stake_sns_neuron : (Args_2) -> (Response_2);
+  update_config : (Args_3) -> (Response_3);
+  update_goldao_config : (Args_4) -> (Response_4);
+  update_ogy_config : (Args_5) -> (Response_5);
 }
