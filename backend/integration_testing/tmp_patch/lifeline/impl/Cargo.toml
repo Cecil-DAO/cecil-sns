@@ -1,0 +1,15 @@
+# The lifeline is a motoko canister.
+#
+# This Cargo file exists so that we can invoke `moc`, the motoko compiler, at rust compile time.
+# src/lib.rs is a rust wrapper library that exposes the lifetime.wasm as a constant, for testing.
+
+[package]
+name = "lifeline"
+version = "0.1.0"
+edition = "2021"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "lifeline"
+path = "src/main.rs"
+

@@ -4,27 +4,22 @@
     "staging": "yb7ln-tiaaa-aaaam-qb4eq-cai"
   },
   "sns_governance": {
-    "ic": "",
-    "staging": ""
+    "ic": "jt5an-tqaaa-aaaaq-aaevq-cai"
   },
   "sns_index": {
-    "ic": "",
-    "staging": ""
+    "ic": "jiy4i-jiaaa-aaaaq-aaexa-cai"
   },
   "sns_ledger": {
-    "ic": "",
-    "staging": ""
+    "ic": "jg2ra-syaaa-aaaaq-aaewa-cai"
   },
   "sns_neuron_controller": {
     "ic": "itz44-maaaa-aaaae-qcszq-cai",
     "staging": "3x5sf-taaaa-aaaah-aq33q-cai"
   },
   "sns_root": {
-    "ic": "",
-    "staging": ""
+    "ic": "ju4gz-6iaaa-aaaaq-aaeva-cai"
   },
   "sns_swap": {
-    "ic": "",
-    "staging": ""
+    "ic": "jb3xu-7aaaa-aaaaq-aaewq-cai"
   }
 }

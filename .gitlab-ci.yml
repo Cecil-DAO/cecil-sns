@@ -94,7 +94,11 @@ rust lint:
         - "backend/**/*.{rs,toml,lock,md,did,wasm,gz}"
   extends: .rust template
   script:
-    - cargo clippy
+    - |
+
+
+      cargo clippy
+
 ################################################################################
 # Unit tests
 ################################################################################

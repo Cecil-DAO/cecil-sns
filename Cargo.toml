@@ -63,7 +63,14 @@ time = { version = "0.3.36", features = [
   "parsing",
   "formatting",
 ] }
-pocket-ic = "3.1.0"
+pocket-ic = "7.0.0"
 async-trait = "0.1.81"
 enum_dispatch = "0.3.13"
 typetag = "0.2.18"
+prost = "0.13.3"
+prost-build = "0.13.3"
+
+[patch."https://github.com/dfinity/ic.git"]
+lifeline = { path = "./backend/integration_testing/tmp_patch/lifeline/impl" }
+
+
