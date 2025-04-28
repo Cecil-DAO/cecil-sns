@@ -1,9 +1,10 @@
-use candid::CandidType;
+use candid::{CandidType, Decode, Encode};
 use ic_stable_structures::{storable::Bound, Storable};
 use serde::{Deserialize, Serialize};
 use std::{
     borrow::Cow,
     fmt::{self, Display, Formatter},
+    u32,
 };
 
 /// A principal with a particular set of permissions over a neuron.
@@ -95,9 +96,36 @@ impl From<[u8; 32]> for NeuronId {
         Self { id: value.to_vec() }
     }
 }
+#[derive(
+    CandidType,
+    Serialize,
+    Deserialize,
+    Eq,
+    std::hash::Hash,
+    Clone,
+    PartialEq,
+    PartialOrd,
+    Ord,
+    Debug,
+    Default,
+)]
+pub struct VecNeurons(pub Vec<NeuronId>);
+
+impl Storable for VecNeurons {
+    const BOUND: Bound = Bound::Unbounded;
+
+    fn to_bytes(&self) -> Cow<[u8]> {
+        Cow::Owned(Encode!(&self.0).unwrap())
+    }
+
+    fn from_bytes(bytes: Cow<[u8]>) -> Self {
+        let neurons: Vec<NeuronId> = Decode!(&bytes, Vec<NeuronId>).unwrap();
+        Self(neurons)
+    }
+}
 
 /// The id of a specific proposal.
-#[derive(candid::CandidType, Serialize, candid::Deserialize, Eq, Copy, Clone, PartialEq, Debug)]
+#[derive(candid::CandidType, Serialize, Deserialize, Eq, Copy, Clone, PartialEq, Debug)]
 pub struct ProposalId {
     pub id: u64,
 }
@@ -621,7 +649,7 @@ pub mod governance_error {
 /// automatically caused by a neuron following other neurons.
 ///
 /// Once a ballot's vote is set it cannot be changed.
-#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq)]
+#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq, Debug)]
 pub struct Ballot {
     /// The ballot's vote.
     pub vote: i32,
@@ -636,7 +664,7 @@ pub struct Ballot {
     pub cast_timestamp_seconds: u64,
 }
 /// A tally of votes associated with a proposal.
-#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq)]
+#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq, Debug)]
 pub struct Tally {
     /// The time when this tally was made, in seconds from the Unix epoch.
     pub timestamp_seconds: u64,
@@ -652,7 +680,7 @@ pub struct Tally {
 }
 /// The wait-for-quiet state associated with a proposal, storing the
 /// data relevant to the "wait-for-quiet" implementation.
-#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq)]
+#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq, Debug)]
 pub struct WaitForQuietState {
     /// The current deadline of the proposal associated with this
     /// WaitForQuietState, in seconds from the Unix epoch.
@@ -660,7 +688,7 @@ pub struct WaitForQuietState {
 }
 /// The ProposalData that contains everything related to a proposal:
 /// the proposal itself (immutable), as well as mutable data such as ballots.
-#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq, Default)]
+#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq, Default, Debug)]
 pub struct ProposalData {
     /// The proposal's action.
     /// Types 0-999 are reserved for current (and future) core governance
@@ -1742,10 +1770,12 @@ pub struct ListProposals {
     pub include_status: Vec<i32>,
 }
 /// A response to the ListProposals command.
-#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq)]
+#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq, Debug)]
 pub struct ListProposalsResponse {
     /// The returned list of proposals' ProposalData.
     pub proposals: Vec<ProposalData>,
+    /// Whether ballots cast by the caller are included in the returned proposals.
+    pub include_ballots_by_caller: Option<bool>,
 }
 /// An operation that lists all neurons tracked in the Governance state in a
 /// paginated fashion.
@@ -1887,14 +1917,18 @@ pub struct GetMaturityModulationResponse {
     pub maturity_modulation: Option<governance::MaturityModulation>,
 }
 /// A Ledger subaccount.
-#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq, Serialize, Debug)]
+#[derive(
+    candid::CandidType, candid::Deserialize, Clone, PartialEq, Serialize, Debug, PartialOrd, Eq, Ord,
+)]
 pub struct Subaccount {
     pub subaccount: Vec<u8>,
 }
 /// A Ledger account identified by the owner of the account `of` and
 /// the `subaccount`. If the `subaccount` is not specified then the default
 /// one is used.
-#[derive(candid::CandidType, candid::Deserialize, Clone, PartialEq, Serialize, Debug)]
+#[derive(
+    candid::CandidType, candid::Deserialize, Clone, PartialEq, Serialize, Debug, PartialOrd, Eq, Ord,
+)]
 pub struct Account {
     /// The owner of the account.
     pub owner: Option<candid::Principal>,
@@ -1902,6 +1936,22 @@ pub struct Account {
     /// subaccount (all bytes set to 0) is used.
     pub subaccount: Option<Subaccount>,
 }
+
+impl Storable for Account {
+    const BOUND: Bound = Bound::Bounded {
+        max_size: 100,
+        is_fixed_size: false,
+    };
+
+    fn to_bytes(&self) -> Cow<[u8]> {
+        Cow::Owned(Encode!(self).unwrap())
+    }
+
+    fn from_bytes(bytes: Cow<[u8]>) -> Self {
+        Decode!(&bytes, Self).unwrap()
+    }
+}
+
 /// The different types of neuron permissions, i.e., privileges to modify a neuron,
 /// that principals can have.
 #[derive(

@@ -9,3 +9,4 @@ edition = "2021"
 candid = { workspace = true }
 serde = { workspace = true }
 types = { path = "../../../libraries/types" }
+icrc-ledger-types = { workspace = true }

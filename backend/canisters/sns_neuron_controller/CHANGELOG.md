@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### [unreleased]
 
+### [1.1.0] - 2025-04-28
+
+#### Add
+- Support of NNS neurons management
+- Support of GOLDAO neurons management
+
+
 ### [1.0.0] - 2025-02-21
 
 #### Description

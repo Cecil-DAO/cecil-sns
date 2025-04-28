@@ -1,6 +1,6 @@
 use crate::guards::caller_is_governance_principal;
 use crate::state::read_state;
-use crate::types::neuron_manager::NeuronRewardsManager;
+use crate::types::sns_neuron_manager::NeuronRewardsManager;
 use candid::Nat;
 use ic_cdk::query;
 
