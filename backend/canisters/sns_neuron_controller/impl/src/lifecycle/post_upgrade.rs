@@ -27,7 +27,7 @@ fn post_upgrade(args: Args) {
                 ::deserialize(reader)
                 .unwrap();
 
-            // uncomment these lines if you want to do an upgrade with migration
+            // uncomment  these lines if you want to do an upgrade with migration
             // let (runtime_state_v0, logs, traces): (
             //     RuntimeStateV0,
             //     Vec<LogEntry>,
