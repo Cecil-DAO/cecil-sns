@@ -16,6 +16,11 @@ if [[ ! $NETWORK =~ ^(local|staging|ic)$ ]]; then
   exit 2
 fi
 
+# if deployment is to local or staging, we deploy always directly via dfx
+if [[ $NETWORK != "ic" ]]; then
+  DEPLOYMENT_VIA="direct"
+fi
+
 # if deployment is to production/ic, the CI_COMMIT_TAG needs to match the expected pattern
 if [[ $NETWORK == ic && ! $CI_COMMIT_TAG =~ ^($CANISTER-v[0-9]+\.[0-9]+\.[0-9]+(-reinstall)?)$ ]]; then
   echo "Error: Enter valid commit tag to deploy to production. Received $CI_COMMIT_TAG."
