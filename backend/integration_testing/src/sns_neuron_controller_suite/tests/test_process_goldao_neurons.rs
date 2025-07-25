@@ -7,7 +7,7 @@ use std::time::Duration;
 
 use crate::{
     client::icrc1::client::{balance_of, transfer},
-    sns_neuron_controller_suite::setup::test_setup_with_predefined_neurons,
+    sns_neuron_controller_suite::setup::test_setup_with_predefined_sns_neurons,
     utils::tick_n_blocks,
 };
 
@@ -18,7 +18,7 @@ pub struct GetNeuronRequest {
 
 #[test]
 fn test_process_goldao_neurons_happy_path() {
-    let test_env = test_setup_with_predefined_neurons();
+    let test_env = test_setup_with_predefined_sns_neurons();
 
     // let goldao_ledger_canister_id = test_env.goldao_sns_test_env.ledger_id;
     let goldao_ledger_canister_id = test_env.goldao_sns_test_env.canister_ids.ledger_id;

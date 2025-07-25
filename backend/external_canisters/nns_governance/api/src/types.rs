@@ -91,6 +91,11 @@ pub mod manage_neuron {
     }
 
     #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
+    pub struct SetVisibility {
+        pub visibility: Option<i32>,
+    }
+
+    #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
     pub struct StartDissolving {}
 
     #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
@@ -141,6 +146,7 @@ pub mod manage_neuron {
             JoinCommunityFund(JoinCommunityFund),
             LeaveCommunityFund(LeaveCommunityFund),
             ChangeAutoStakeMaturity(ChangeAutoStakeMaturity),
+            SetVisibility(SetVisibility),
         }
     }
 
@@ -179,6 +185,17 @@ pub mod manage_neuron {
     #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
     pub struct MergeMaturity {
         pub percentage_to_merge: u32,
+    }
+
+    #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
+    pub struct FolloweesForTopic {
+        pub topic: Option<i32>,
+        pub followees: Option<Vec<NeuronId>>,
+    }
+
+    #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
+    pub struct SetFollowing {
+        pub topic_following: Option<Vec<FolloweesForTopic>>,
     }
 
     #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
@@ -254,19 +271,21 @@ pub mod manage_neuron {
 
     #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
     pub enum Command {
-        Configure(Configure),
-        Disburse(Disburse),
         Spawn(Spawn),
-        Follow(Follow),
-        RegisterVote(RegisterVote),
         Split(Split),
+        Follow(Follow),
         DisburseMaturity(DisburseMaturity),
-        DisburseToNeuron(DisburseToNeuron),
-        ClaimOrRefresh(ClaimOrRefresh),
-        MergeMaturity(MergeMaturity),
-        Merge(Merge),
-        StakeMaturity(StakeMaturity),
         RefreshVotingPower(RefreshVotingPower),
+        ClaimOrRefresh(ClaimOrRefresh),
+        Configure(Configure),
+        RegisterVote(RegisterVote),
+        Merge(Merge),
+        DisburseToNeuron(DisburseToNeuron),
+        SetFollowing(SetFollowing),
+        MakeProposal(Proposal),
+        StakeMaturity(StakeMaturity),
+        MergeMaturity(MergeMaturity),
+        Disburse(Disburse),
     }
 }
 

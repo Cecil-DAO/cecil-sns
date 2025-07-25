@@ -13,6 +13,7 @@ serde_bytes = { workspace = true }
 types = { path = "../libraries/types" }
 utils = { path = '../libraries/utils' }
 canister_time = { path = '../libraries/canister_time' }
+ledger_utils = { path = "../libraries/ledger_utils" }
 icrc-ledger-types = { workspace = true }
 icrc_ledger_canister = { path = "../external_canisters/icrc_ledger/api" }
 rand = "0.8.5"
@@ -35,3 +36,5 @@ nns_governance_canister = { path = '../external_canisters/nns_governance/api' }
 
 # DFINITY crates
 ic-nns-test-utils = { git = "https://github.com/dfinity/ic.git", branch = "master", package = "ic-nns-test-utils" }
+ic-nns-governance-api = { git = "https://github.com/dfinity/ic.git", branch = "master", package = "ic-nns-governance-api" }
+ic-nns-common = { git = "https://github.com/dfinity/ic.git", branch = "master", package = "ic-nns-common" }

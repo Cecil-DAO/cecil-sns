@@ -103,6 +103,11 @@ type GenericNervousSystemFunction = record {
   validator_method_name : opt text;
   target_method_name : opt text;
 };
+type ManagerType = variant {
+    OGY;
+    GOLDAO;
+    ICP;
+};
 type GoldaoManagerConfig = record {
   goldao_rewards_threshold : nat;
   goldao_sns_ledger_canister_id : principal;
@@ -114,6 +119,18 @@ type IcpManagerConfig = record {
   nns_ledger_canister_id : principal;
   nns_governance_canister_id : principal;
   rewards_recipients : vec RewardsRecipient;
+};
+type ManagerConfig = variant {
+    OgyConfig: OgyManagerConfig;
+    GoldaoConfig: GoldaoManagerConfig;
+    IcpConfig: IcpManagerConfig;
+};
+type GetConfigArgs = record {
+    manager_type: ManagerType;
+};
+
+type GetConfigResponse = record {
+    config: ManagerConfig;
 };
 type IncreaseDissolveDelay = record {
   additional_dissolve_delay_seconds : nat32;
@@ -183,10 +200,37 @@ type Neuron = record {
   followees : vec record { nat64; Followees };
   neuron_fees_e8s : nat64;
 };
+type NnsNeuron = record {
+    id : opt NeuronId;
+    account : blob;
+    controller : opt principal;
+    hot_keys : vec principal;
+    cached_neuron_stake_e8s : nat64;
+    neuron_fees_e8s : nat64;
+    created_timestamp_seconds : nat64;
+    aging_since_timestamp_seconds : nat64;
+    spawn_at_timestamp_seconds : opt nat64;
+    followees : vec record { int32; Followees };
+    recent_ballots : vec BallotInfo;
+    kyc_verified : bool;
+    maturity_e8s_equivalent : nat64;
+    staked_maturity_e8s_equivalent : opt nat64;
+    auto_stake_maturity : opt bool;
+    not_for_profit : bool;
+    joined_community_fund_timestamp_seconds : opt nat64;
+    known_neuron_data : opt KnownNeuronData;
+    dissolve_state : opt DissolveState;
+    voting_power_refreshed_timestamp_seconds : opt nat64;
+    potential_voting_power : opt nat64;
+    neuron_type : opt int32;
+    deciding_voting_power : opt nat64;
+    visibility : opt int32;
+};
 type NeuronId = record { id : blob };
 type NeuronList = record {
   ogy_neurons : vec Neuron;
   goldao_neurons : vec Neuron;
+  icp_neurons : vec NnsNeuron;
 };
 type NeuronPermission = record {
   "principal" : opt principal;
@@ -256,7 +300,8 @@ type VotingRewardsParameters = record {
   round_duration_seconds : opt nat64;
 };
 service : (Args_6) -> {
-  list_ogy_neurons : () -> (ListNeuronsResponse) query;
+  list_neurons : () -> (ListNeuronsResponse) query;
+  get_config: (GetConfigArgs) -> (GetConfigResponse) query;
   manage_sns_neuron : (Args) -> (Response);
   stake_nns_neuron : (Args_1) -> (Response_1);
   stake_sns_neuron : (Args_2) -> (Response_2);

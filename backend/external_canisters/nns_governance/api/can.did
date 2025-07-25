@@ -59,6 +59,18 @@ type ClaimOrRefreshNeuronFromAccount = record {
 };
 type ClaimOrRefreshNeuronFromAccountResponse = record { result : opt Result_1 };
 type ClaimOrRefreshResponse = record { refreshed_neuron_id : opt NeuronId };
+type DisburseMaturity = record {
+  percentage_to_disburse : nat32;
+  to_account : opt Account;
+  to_account_identifier: opt AccountIdentifier;
+};
+type Account = record {
+  owner: opt principal;
+  subaccount: opt blob;
+};
+type DisburseMaturityResponse = record {
+  amount_disbursed_e8s : opt nat64;
+};
 type Command = variant {
   Spawn : Spawn;
   Split : Split;
@@ -72,6 +84,7 @@ type Command = variant {
   StakeMaturity : StakeMaturity;
   MergeMaturity : MergeMaturity;
   Disburse : Disburse;
+  DisburseMaturity : DisburseMaturity;
 };
 type Command_1 = variant {
   Error : GovernanceError;
@@ -87,6 +100,7 @@ type Command_1 = variant {
   StakeMaturity : StakeMaturityResponse;
   MergeMaturity : MergeMaturityResponse;
   Disburse : DisburseResponse;
+  DisburseMaturity : DisburseMaturityResponse;
 };
 type Command_2 = variant {
   Spawn : NeuronId;
