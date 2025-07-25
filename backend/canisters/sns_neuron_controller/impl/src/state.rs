@@ -7,6 +7,7 @@ use crate::types::GoldaoManager;
 use crate::types::OgyManager;
 use candid::{CandidType, Principal};
 use canister_state_macros::canister_state;
+use nns_governance_canister::types::Neuron as NnsNeuron;
 use serde::{Deserialize, Serialize};
 use sns_governance_canister::types::Neuron;
 use sns_neuron_controller_api_canister::init::GoldaoManagerConfig;
@@ -133,6 +134,7 @@ impl NeuronManagers {
         NeuronList {
             ogy_neurons: self.ogy.neurons.all_neurons.clone(),
             goldao_neurons: self.goldao.neurons.all_neurons.clone(),
+            icp_neuons: self.icp.neurons.all_neurons.clone(),
         }
     }
 
@@ -148,4 +150,5 @@ impl NeuronManagers {
 pub struct NeuronList {
     ogy_neurons: Vec<Neuron>,
     goldao_neurons: Vec<Neuron>,
+    icp_neuons: Vec<NnsNeuron>,
 }

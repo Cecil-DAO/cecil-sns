@@ -32,7 +32,7 @@ impl Default for IcpManager {
                 .unwrap(),
             nns_ledger_canister_id: Principal::from_text("ryjl3-tyaaa-aaaaa-aaaba-cai").unwrap(),
             neurons: Neurons::default(),
-            icp_rewards_threshold: Nat::from(0_u64),
+            icp_rewards_threshold: Nat::from(100_000_000_000_u64),
         }
     }
 }
@@ -271,11 +271,17 @@ impl IcpManager {
         Ok(neuron_id.id)
     }
 
-    async fn get_available_nns_rewards(&self) -> Nat {
+    pub async fn get_available_nns_rewards(&self, threshold: Option<&Nat>) -> Nat {
+        let threshold_u64 = threshold
+            .map(|t| t.0.clone().try_into().unwrap_or(0))
+            .unwrap_or(0);
         self.get_neurons()
             .all_neurons
             .iter()
-            .filter(|neuron| neuron.maturity_e8s_equivalent > 10_000_u64) // Take into account only if the transfer fee is covered
+            .filter(|neuron| {
+                neuron.maturity_e8s_equivalent > 10_000_u64 // Cover transfer fee
+                    && neuron.maturity_e8s_equivalent >= threshold_u64 // Meet threshold if provided
+            })
             .fold(Nat::from(0_u64), |sum, neuron| {
                 sum + neuron.maturity_e8s_equivalent
             })
@@ -302,6 +308,48 @@ impl IcpManager {
 
         for neuron in sorted_neurons {
             let neuron_id = neuron.id.clone().unwrap();
+
+            // Disburse maturity from current neuron
+            disburse_neuron_maturity(
+                self.get_nns_governance_canister_id(),
+                neuron_id.clone(),
+                Some(rewards_destination.into()),
+                100,
+            )
+            .await?;
+        }
+
+        Ok(())
+    }
+
+    // NOTE: disburses maturity only from neurons that meet the individual threshold
+    pub async fn disburse_maturity_from_eligible_neurons(
+        &self,
+        rewards_destination: Principal,
+        threshold: &Nat,
+    ) -> Result<(), String> {
+        let threshold_u64 = threshold.0.clone().try_into().unwrap_or(0);
+
+        // Sort neurons by available maturity descending, but only include those that meet the threshold
+        let mut sorted_neurons: Vec<&Neuron> = self
+            .neurons
+            .all_neurons
+            .iter()
+            .filter(|n| {
+                n.id.is_some()
+                    && n.maturity_e8s_equivalent > 10_000 // Cover transfer fee
+                    && n.maturity_e8s_equivalent >= threshold_u64 // Meet individual threshold
+            })
+            .collect();
+        sorted_neurons.sort_by_key(|n| std::cmp::Reverse(n.maturity_e8s_equivalent));
+
+        for neuron in sorted_neurons {
+            let neuron_id = neuron.id.clone().unwrap();
+
+            info!(
+                "Disbursing {} e8s maturity from neuron {} (threshold: {} e8s)",
+                neuron.maturity_e8s_equivalent, neuron_id.id, threshold_u64
+            );
 
             // Disburse maturity from current neuron
             disburse_neuron_maturity(

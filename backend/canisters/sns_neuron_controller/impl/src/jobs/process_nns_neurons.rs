@@ -1,10 +1,11 @@
 use crate::state::{mutate_state, read_state};
 use crate::types::icp_neuron_manager::IcpManager;
 use crate::utils::retry_with_attempts;
+
 use canister_time::{run_now_then_interval, DAY_IN_MS};
 use canister_tracing_macros::trace;
 use std::time::Duration;
-use tracing::error;
+use tracing::{error, info};
 use types::Milliseconds;
 use utils::env::Environment;
 
@@ -29,7 +30,7 @@ async fn run_async() {
     .await
     {
         error!(
-            "Failed to process OGY neurons after {} attempts: {:?}",
+            "Failed to process ICP neurons after {} attempts: {:?}",
             MAX_ATTEMPTS, err
         );
     }
@@ -44,15 +45,64 @@ async fn fetch_and_process_neurons(neuron_manager: &mut IcpManager) -> Result<()
             err.to_string()
         })?;
 
-    // TODO: Uncomment the following lines when the claim_rewards and distribute_rewards methods are implemented on DFINITY's side
-    // let available_rewards = neuron_manager.get_available_rewards().await;
+    // Check each neuron individually against the threshold
+    let rewards_threshold = neuron_manager.icp_rewards_threshold.clone();
 
-    // let rewards_threshold = neuron_manager.get_rewards_threshold();
-    // if available_rewards >= rewards_threshold
-    //     && neuron_manager.claim_rewards().await.is_not_failed()
-    // {
-    //     let _ = neuron_manager.distribute_rewards().await;
-    // }
+    neuron_manager.neurons.all_neurons.retain(|neuron| {
+        neuron.id.is_some()
+            && neuron.maturity_e8s_equivalent > 10_000 // Cover transfer fee
+            && neuron.maturity_e8s_equivalent >= rewards_threshold
+    });
+
+    // Log total vs eligible rewards for better visibility
+    let total_rewards = neuron_manager.get_available_nns_rewards(None).await;
+
+    let eligible_rewards = total_rewards; // Same as total since we filtered
+
+    info!(
+        "NNS rewards summary: {} e8s eligible after filtering (threshold: {} e8s)",
+        eligible_rewards, rewards_threshold
+    );
+
+    if neuron_manager.neurons.all_neurons.is_empty() {
+        info!(
+            "No neurons meet the maturity threshold of {} e8s, skipping distribution",
+            rewards_threshold
+        );
+    } else {
+        info!(
+            "Found {} neurons eligible for maturity distribution (threshold: {} e8s)",
+            neuron_manager.neurons.all_neurons.len(),
+            rewards_threshold
+        );
+
+        // Get the rewards destination from state
+        let rewards_destination = read_state(|state| state.data.rewards_destination);
+
+        match rewards_destination {
+            Some(destination) => {
+                info!("Starting NNS maturity distribution to {}", destination);
+
+                match neuron_manager
+                    .disburse_maturity_from_eligible_neurons(destination, &rewards_threshold)
+                    .await
+                {
+                    Ok(()) => {
+                        info!("Successfully completed NNS maturity distribution");
+                    }
+                    Err(e) => {
+                        error!("Failed to disburse NNS maturity: {}", e);
+                        return Err(format!("Maturity disbursement failed: {}", e));
+                    }
+                }
+            }
+            None => {
+                let error_msg = "No rewards destination configured for NNS maturity distribution";
+                error!("{}", error_msg);
+                return Err(error_msg.to_string());
+            }
+        }
+    }
 
     mutate_state(|s| {
         s.data.neuron_managers.icp = neuron_manager.clone();

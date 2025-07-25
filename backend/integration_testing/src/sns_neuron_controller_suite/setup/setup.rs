@@ -2,9 +2,10 @@ use crate::sns_neuron_controller_suite::setup::setup_ledger::setup_ledgers;
 use crate::sns_neuron_controller_suite::setup::setup_rewards::setup_rewards_canister;
 use crate::sns_neuron_controller_suite::setup::setup_sns_neuron_controller::setup_sns_neuron_controller_canister;
 use crate::sns_neuron_controller_suite::setup::*;
+use crate::sns_test_env::nns_test_env::generate_nns_neuron_data;
 use crate::sns_test_env::nns_test_env::NnsTestEnv;
 use crate::sns_test_env::nns_test_env::NnsTestEnvBuilder;
-use crate::sns_test_env::sns_init_args::generate_neuron_data;
+use crate::sns_test_env::sns_init_args::generate_sns_neuron_data;
 use crate::sns_test_env::sns_init_args::SnsInitArgs;
 use crate::sns_test_env::sns_test_env::SnsTestEnv;
 use crate::utils::random_principal;
@@ -35,6 +36,7 @@ pub struct SNCTestEnv {
     pub goldao_sns_test_env: SnsTestEnv,
     pub ogy_neuron_data: HashMap<usize, Neuron>,
     pub goldao_neuron_data: HashMap<usize, Neuron>,
+    pub icp_neuron_data: HashMap<usize, ic_nns_governance_api::pb::v1::Neuron>,
     pub sns_neuron_controller_id: CanisterId,
     pub ogy_rewards_canister_id: CanisterId,
     pub goldao_rewards_canister_id: CanisterId,
@@ -81,7 +83,8 @@ pub struct SNCTestEnvBuilder {
     initial_ledger_accounts: Vec<(Account, Nat)>,
     ledger_fees: HashMap<String, Nat>,
     // Marker to check whether the neuron data needs to be pre-generated
-    with_neuron_data: bool,
+    with_sns_neuron_data: bool,
+    with_nns_neuron_data: bool,
 }
 
 impl Default for SNCTestEnvBuilder {
@@ -95,7 +98,8 @@ impl Default for SNCTestEnvBuilder {
             token_symbols: vec![],
             initial_ledger_accounts: vec![],
             ledger_fees: HashMap::new(),
-            with_neuron_data: false,
+            with_sns_neuron_data: false,
+            with_nns_neuron_data: false,
         }
     }
 }
@@ -110,8 +114,13 @@ impl SNCTestEnvBuilder {
         self
     }
 
-    pub fn with_neuron_data(mut self) -> Self {
-        self.with_neuron_data = true;
+    pub fn with_sns_neuron_data(mut self) -> Self {
+        self.with_sns_neuron_data = true;
+        self
+    }
+
+    pub fn with_nns_neuron_data(mut self) -> Self {
+        self.with_nns_neuron_data = true;
         self
     }
 
@@ -138,11 +147,6 @@ impl SNCTestEnvBuilder {
         let pic = pic_ref.borrow();
         let sns_subnet = pic.topology().get_sns().unwrap();
 
-        let nns_test_env = {
-            let builder = NnsTestEnvBuilder::new(pic_ref.clone(), self.controller.clone());
-            builder.generate_cansiters()
-        };
-
         self.ogy_rewards_canister_id =
             pic.create_canister_on_subnet(Some(self.controller.clone()), None, sns_subnet);
         self.goldao_rewards_canister_id =
@@ -155,12 +159,32 @@ impl SNCTestEnvBuilder {
         // NOTE: Neuron Permissions should be granted to the controller
         let mut ogy_neuron_data = HashMap::new();
         let mut goldao_neuron_data = HashMap::new();
-        if self.with_neuron_data == true {
+        if self.with_sns_neuron_data == true {
             (ogy_neuron_data, _) =
-                generate_neuron_data(0, 1, 1, &vec![self.sns_neuron_controller_id]);
+                generate_sns_neuron_data(0, 1, 1, &vec![self.sns_neuron_controller_id]);
             (goldao_neuron_data, _) =
-                generate_neuron_data(0, 1, 1, &vec![self.sns_neuron_controller_id]);
+                generate_sns_neuron_data(0, 1, 1, &vec![self.sns_neuron_controller_id]);
         }
+
+        let mut icp_neuron_data = HashMap::new();
+        if self.with_nns_neuron_data == true {
+            (icp_neuron_data, _) =
+                generate_nns_neuron_data(0, 1, 150_000_000, &vec![self.sns_neuron_controller_id]);
+        }
+
+        let nns_test_env = {
+            let mut builder = NnsTestEnvBuilder::new(pic_ref.clone(), self.controller.clone());
+            if self.with_nns_neuron_data == true {
+                // Convert HashMap<usize, Neuron> to HashMap<u64, Neuron>
+                let neuron_data_u64: HashMap<u64, ic_nns_governance_api::pb::v1::Neuron> =
+                    icp_neuron_data
+                        .iter()
+                        .map(|(k, v)| (*k as u64, v.clone()))
+                        .collect();
+                builder = builder.with_neuron_data(neuron_data_u64);
+            }
+            builder.generate_cansiters()
+        };
 
         let (ogy_init_args, ogy_canister_ids) =
             SnsInitArgs::new(&pic, &ogy_neuron_data, self.controller.clone());
@@ -248,7 +272,7 @@ impl SNCTestEnvBuilder {
             icp_manager_config: sns_neuron_controller_api_canister::init::IcpManagerConfig {
                 nns_governance_canister_id: nns_test_env.canister_ids.governance_id,
                 nns_ledger_canister_id: nns_test_env.canister_ids.ledger_id,
-                icp_rewards_threshold: Nat::from(100_000_000_000_000_u64),
+                icp_rewards_threshold: Nat::from(10_000_u64),
             },
         });
 
@@ -264,6 +288,7 @@ impl SNCTestEnvBuilder {
             controller: self.controller,
             ogy_neuron_data,
             goldao_neuron_data,
+            icp_neuron_data,
             nns_test_env,
             ogy_sns_test_env,
             goldao_sns_test_env,

@@ -1,11 +1,18 @@
 use crate::utils::tick_n_blocks;
 use crate::wasms;
 use candid::{encode_one, Principal};
+use ic_nns_common::pb::v1::NeuronId;
+use ic_nns_governance_api::pb::v1::Neuron;
+
 use ic_nns_test_utils::common::{NnsInitPayloads, NnsInitPayloadsBuilder};
+use ledger_utils::compute_neuron_staking_subaccount_bytes;
+use nns_governance_canister::types::manage_neuron::Command;
 use pocket_ic::management_canister::CanisterSettings;
 use pocket_ic::PocketIc;
 use std::cell::Ref;
 use std::cell::RefCell;
+use std::collections::BTreeMap;
+use std::collections::HashMap;
 use std::rc::Rc;
 use std::time::Duration;
 
@@ -14,6 +21,87 @@ pub struct NnsTestEnv {
     pub controller: Principal,
     pub canister_ids: CanisterIds,
     pub nns_init_payload: NnsInitPayloads,
+}
+
+impl NnsTestEnv {
+    pub fn submit_proposal(
+        &self,
+        neuron_owner: Principal,
+        neuron_id: u64,
+        proposal: nns_governance_canister::types::Proposal,
+    ) {
+        let pic = self.pic.borrow();
+
+        println!(
+            "Submitting proposal with neuron {:?}: {:?}",
+            neuron_id, proposal
+        );
+
+        let manage_neuron = nns_governance_canister::types::ManageNeuron {
+            id: Some(nns_governance_canister::types::NeuronId { id: neuron_id }),
+            neuron_id_or_subaccount: None,
+            command: Some(Command::MakeProposal(proposal)),
+        };
+
+        let _ = crate::client::nns_governance::manage_neuron(
+            &pic,
+            neuron_owner,
+            self.canister_ids.governance_id,
+            &manage_neuron,
+        );
+
+        pic.advance_time(std::time::Duration::from_secs(100));
+        tick_n_blocks(&pic, 50);
+    }
+
+    pub fn vote_on_proposal(
+        &self,
+        neuron_owner: Principal,
+        neuron_id: u64,
+        proposal_id: u64,
+        vote: bool,
+    ) {
+        let pic = self.pic.borrow();
+        // Convert the boolean vote to the expected integer format
+        // According to the IC documentation, 1 = yes (adopt), 2 = no (reject)
+        let vote_value: i32 = if vote { 1 } else { 2 };
+
+        println!(
+            "Voting {} on proposal {} with neuron {}",
+            if vote { "yes" } else { "no" },
+            proposal_id,
+            &neuron_id
+        );
+
+        // Call the register_vote method on the governance canister
+        let manage_neuron = nns_governance_canister::types::ManageNeuron {
+            id: Some(nns_governance_canister::types::NeuronId { id: neuron_id }),
+            neuron_id_or_subaccount: None,
+            command: Some(
+                nns_governance_canister::types::manage_neuron::Command::RegisterVote(
+                    nns_governance_canister::types::manage_neuron::RegisterVote {
+                        proposal: Some(nns_governance_canister::types::ProposalId {
+                            id: proposal_id,
+                        }),
+                        vote: vote_value,
+                    },
+                ),
+            ),
+        };
+
+        let result = crate::client::nns_governance::manage_neuron(
+            &pic,
+            neuron_owner,
+            self.canister_ids.governance_id,
+            &manage_neuron,
+        );
+
+        println!("Vote result: {result:?}");
+
+        // Advance time to simulate vote processing
+        pic.advance_time(std::time::Duration::from_secs(100));
+        tick_n_blocks(&pic, 50);
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -86,6 +174,7 @@ pub struct NnsTestEnvBuilder {
     pub pic: Rc<RefCell<PocketIc>>,
     pub controller: Principal,
     pub canister_ids: CanisterIds,
+    pub neuron_data: HashMap<u64, Neuron>,
 }
 
 impl Default for NnsTestEnvBuilder {
@@ -94,6 +183,7 @@ impl Default for NnsTestEnvBuilder {
             pic: Rc::new(RefCell::new(PocketIc::default())),
             controller: Principal::anonymous(),
             canister_ids: CanisterIds::default(),
+            neuron_data: HashMap::new(),
         }
     }
 }
@@ -104,11 +194,17 @@ impl NnsTestEnvBuilder {
             pic,
             controller,
             canister_ids: CanisterIds::default(),
+            neuron_data: HashMap::new(),
         }
     }
 
     pub fn with_controller(mut self, controller: Principal) -> Self {
         self.controller = controller;
+        self
+    }
+
+    pub fn with_neuron_data(mut self, neuron_data: HashMap<u64, Neuron>) -> Self {
+        self.neuron_data.extend(neuron_data);
         self
     }
 
@@ -118,7 +214,7 @@ impl NnsTestEnvBuilder {
         let pic = self.pic.borrow();
 
         let mut nns_init_payload_builder = NnsInitPayloadsBuilder::new();
-        let nns_init_payload = nns_init_payload_builder.build();
+        let mut nns_init_payload = nns_init_payload_builder.build();
 
         let NnsInitPayloads {
             lifeline,
@@ -130,7 +226,14 @@ impl NnsTestEnvBuilder {
             index,
             cycles_minting,
             sns_wasms,
-        } = &nns_init_payload;
+        } = &mut nns_init_payload;
+
+        let neuron_data_with_neuron_keys: BTreeMap<u64, Neuron> = self
+            .neuron_data
+            .iter() // Iterate over the entries of the original map
+            .map(|(key, value)| (*key, value.clone())) // Dereference key to get u64
+            .collect();
+        governance.neurons = neuron_data_with_neuron_keys;
 
         pic.install_canister(
             self.canister_ids.lifeline_id,
@@ -204,5 +307,93 @@ impl NnsTestEnvBuilder {
             canister_ids: self.canister_ids,
             nns_init_payload,
         }
+    }
+}
+
+/// Generates NNS neuron data for testing purposes
+///
+/// # Arguments
+/// * `start_at` - Starting neuron ID (e.g., 0 or 1)
+/// * `n` - Ending neuron ID (exclusive, so n=10 creates neurons 0-9)
+/// * `maturity_multiplier` - Multiplier for neuron maturity (e.g., 1000000000 for 1B e8s)
+/// * `users` - Vector of user principals who will own the neurons (cycles through them)
+///
+/// # Returns
+/// * `HashMap<usize, Neuron>` - Map of neuron index to Neuron struct
+/// * `HashMap<Principal, usize>` - Map of user principal to their neuron index
+///
+/// # Example
+/// ```
+/// let users = vec![
+///     Principal::from_text("rdmx6-jaaaa-aaaaa-aaadq-cai").unwrap(),
+///     Principal::from_text("renrk-eyaaa-aaaaa-aaada-cai").unwrap(),
+/// ];
+/// let (neurons, owner_map) = generate_nns_neuron_data(0, 4, 1000000000, &users);
+/// // Creates 4 neurons (IDs 0,1,2,3) alternating between the two users
+/// // Each neuron has computed subaccount using ledger_utils::compute_neuron_staking_subaccount_bytes
+/// ```
+pub fn generate_nns_neuron_data(
+    start_at: usize,
+    n: usize,
+    maturity_multiplier: u64,
+    users: &Vec<Principal>,
+) -> (HashMap<usize, Neuron>, HashMap<Principal, usize>) {
+    let mut neuron_data = HashMap::new();
+    let mut owner_map = HashMap::new();
+    let mut index_user = 0;
+    for i in start_at..n {
+        let neuron_id = NeuronId { id: i as u64 };
+        let user_principal = users.get(index_user).clone();
+        let neuron = create_nns_neuron(
+            neuron_id,
+            maturity_multiplier,
+            user_principal.unwrap_or(&Principal::anonymous()),
+        );
+        neuron_data.insert(i, neuron);
+        if user_principal.is_some() {
+            owner_map.insert(user_principal.unwrap().clone(), i);
+        }
+        if !users.is_empty() {
+            index_user = (index_user + 1) % users.len();
+        }
+    }
+
+    (neuron_data, owner_map)
+}
+
+pub fn create_nns_neuron(id: NeuronId, maturity_multiplier: u64, controller: &Principal) -> Neuron {
+    // Compute the subaccount for this neuron
+    let subaccount = compute_neuron_staking_subaccount_bytes(*controller, id.id);
+
+    Neuron {
+        id: Some(id),
+        cached_neuron_stake_e8s: 3000000000000u64,
+        neuron_fees_e8s: 0u64,
+        created_timestamp_seconds: 1620329630,
+        aging_since_timestamp_seconds: u64::MAX,
+        followees: HashMap::new(),
+        maturity_e8s_equivalent: 1 * maturity_multiplier,
+        staked_maturity_e8s_equivalent: Some(10),
+        auto_stake_maturity: Some(false),
+        dissolve_state: Some(
+            ic_nns_governance_api::pb::v1::neuron::DissolveState::WhenDissolvedTimestampSeconds(
+                100000000000,
+            ),
+        ),
+        account: subaccount.to_vec(),
+        controller: Some((*controller).into()),
+        hot_keys: vec![],
+        spawn_at_timestamp_seconds: None,
+        recent_ballots: vec![],
+        kyc_verified: true,
+        transfer: None,
+        not_for_profit: false,
+        joined_community_fund_timestamp_seconds: None,
+        known_neuron_data: None,
+        neuron_type: None,
+        visibility: None,
+        voting_power_refreshed_timestamp_seconds: None,
+        deciding_voting_power: None,
+        potential_voting_power: None,
     }
 }
