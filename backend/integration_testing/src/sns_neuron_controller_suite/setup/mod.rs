@@ -15,9 +15,18 @@ pub fn default_test_setup() -> SNCTestEnv {
         .build()
 }
 
-pub fn test_setup_with_predefined_neurons() -> SNCTestEnv {
+pub fn test_setup_with_predefined_sns_neurons() -> SNCTestEnv {
     SNCTestEnvBuilder::new()
-        .with_neuron_data()
+        .with_sns_neuron_data()
+        .add_token_ledger("ICP", &mut vec![], Nat::from(10_000u64))
+        // .add_token_ledger("OGY", &mut vec![], Nat::from(200_000u64))
+        // .add_token_ledger("GLDGov", &mut vec![], Nat::from(100_000u64))
+        .build()
+}
+
+pub fn test_setup_with_predefined_nns_neurons() -> SNCTestEnv {
+    SNCTestEnvBuilder::new()
+        .with_nns_neuron_data()
         .add_token_ledger("ICP", &mut vec![], Nat::from(10_000u64))
         // .add_token_ledger("OGY", &mut vec![], Nat::from(200_000u64))
         // .add_token_ledger("GLDGov", &mut vec![], Nat::from(100_000u64))

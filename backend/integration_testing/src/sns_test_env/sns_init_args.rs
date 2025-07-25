@@ -342,7 +342,7 @@ pub fn neuron_id_from_number(n: usize) -> NeuronId {
     NeuronId::new(&hex_id).unwrap()
 }
 
-pub fn generate_neuron_data(
+pub fn generate_sns_neuron_data(
     start_at: usize,
     n: usize,
     maturity_multiplier: u64,
@@ -355,7 +355,7 @@ pub fn generate_neuron_data(
         let neuron_id = neuron_id_from_number(i);
         let user_principal = users.get(index_user).clone();
         let perms = create_neuron_permissions(user_principal);
-        let neuron = create_neuron(neuron_id, maturity_multiplier, perms);
+        let neuron = create_sns_neuron(neuron_id, maturity_multiplier, perms);
         neuron_data.insert(i, neuron);
         if user_principal.is_some() {
             owner_map.insert(user_principal.unwrap().clone(), i);
@@ -368,7 +368,7 @@ pub fn generate_neuron_data(
     (neuron_data, owner_map)
 }
 
-pub fn create_neuron(
+pub fn create_sns_neuron(
     id: NeuronId,
     maturity_multiplier: u64,
     perms: Vec<NeuronPermission>,
