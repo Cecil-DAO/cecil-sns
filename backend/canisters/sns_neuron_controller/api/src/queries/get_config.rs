@@ -10,12 +10,12 @@ pub enum ManagerType {
 }
 
 #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
-pub struct Args {
+pub struct GetConfigArgs {
     pub manager_type: ManagerType,
 }
 
 #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
-pub struct Response {
+pub struct GetConfigResponse {
     pub config: ManagerConfig,
 }
 

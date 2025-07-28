@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### [unreleased]
 
+### [1.1.3] - 2025-07-28
+
+#### Modify
+
+- Fixed the state mutation to happen before neurons are filtered out in daily nns job
+- Renamed args and response for get_config to be unique
+
 ### [1.1.2] - 2025-07-25
 
 #### Add
@@ -23,7 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 #### Modify
 
 - Return ICP neuron data on /neurons endpoint
-  
+
 ### [1.1.0] - 2025-04-28
 
 #### Add

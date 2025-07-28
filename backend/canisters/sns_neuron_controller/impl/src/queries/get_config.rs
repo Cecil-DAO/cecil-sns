@@ -3,13 +3,13 @@ use crate::state::read_state;
 use canister_tracing_macros::trace;
 use ic_cdk_macros::query;
 pub use sns_neuron_controller_api_canister::get_config::{
-    Args, GoldaoManagerConfig, IcpManagerConfig, ManagerConfig, ManagerType, OgyManagerConfig,
-    Response,
+    GetConfigArgs, GetConfigResponse, GoldaoManagerConfig, IcpManagerConfig, ManagerConfig,
+    ManagerType, OgyManagerConfig,
 };
 
 #[query]
 #[trace]
-fn get_config(args: Args) -> Response {
+fn get_config(args: GetConfigArgs) -> GetConfigResponse {
     read_state(|state| {
         let config = match args.manager_type {
             ManagerType::OGY => {
@@ -27,8 +27,7 @@ fn get_config(args: Args) -> Response {
                     goldao_sns_governance_canister_id: goldao_manager
                         .goldao_sns_governance_canister_id,
                     goldao_sns_ledger_canister_id: goldao_manager.goldao_sns_ledger_canister_id,
-                    goldao_sns_rewards_canister_id: goldao_manager
-                        .goldao_sns_rewards_canister_id,
+                    goldao_sns_rewards_canister_id: goldao_manager.goldao_sns_rewards_canister_id,
                     goldao_rewards_threshold: goldao_manager.goldao_rewards_threshold.clone(),
                 })
             }
@@ -41,6 +40,6 @@ fn get_config(args: Args) -> Response {
                 })
             }
         };
-        Response { config }
+        GetConfigResponse { config }
     })
 }
