@@ -45,6 +45,11 @@ async fn fetch_and_process_neurons(neuron_manager: &mut IcpManager) -> Result<()
             err.to_string()
         })?;
 
+    mutate_state(|s| {
+        s.data.neuron_managers.icp = neuron_manager.clone();
+        s.data.neuron_managers.now = s.env.now();
+    });
+
     // Check each neuron individually against the threshold
     let rewards_threshold = neuron_manager.icp_rewards_threshold.clone();
 
@@ -103,11 +108,6 @@ async fn fetch_and_process_neurons(neuron_manager: &mut IcpManager) -> Result<()
             }
         }
     }
-
-    mutate_state(|s| {
-        s.data.neuron_managers.icp = neuron_manager.clone();
-        s.data.neuron_managers.now = s.env.now();
-    });
 
     Ok(())
 }
